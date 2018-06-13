@@ -23,7 +23,7 @@ class Home extends React.Component<{}, HomeProps> {
       this.editor.setValue(this.state.value);
       
       // @TODO: turn state.output to a JSON
-      console.log(JSON.stringify(this.state.output, null, 2));
+      // console.log(this.state.output);
     }
   }
 
@@ -33,14 +33,17 @@ class Home extends React.Component<{}, HomeProps> {
 
     this.editor.onDidChangeModelContent(() => {
       const value = this.editor.getValue();
+
+      const output: SnippetOutput = {
+        'test': {
+          prefix: 'test',
+          body: value.split('\n'),
+        },
+      };
+
       this.setState({
         value,
-        output: {
-          'test': {
-            prefix: 'test',
-            body: value.split('\n'),
-          },
-        },
+        output: JSON.stringify(output, null, 2),
       });
     });
   }
@@ -61,7 +64,7 @@ class Home extends React.Component<{}, HomeProps> {
 
 interface HomeProps {
   value: string;
-  output: SnippetOutput;
+  output: string; // stringified JSON
 }
 
 export default Home;
