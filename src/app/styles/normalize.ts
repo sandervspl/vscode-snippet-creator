@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const normalize = css`
-    html {
+    /* html {
         line-height: 1.15;
         -webkit-text-size-adjust: 100%;
     }
@@ -142,7 +142,7 @@ export const normalize = css`
     }
     [hidden] {
         display: none;
-    }
+    } */
 `;
 
 export default normalize;

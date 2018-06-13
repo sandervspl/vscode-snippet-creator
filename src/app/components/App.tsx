@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router';
-import { Test } from './modules';
+import { Home } from './modules';
 
 // @ts-ignore
 // Argument of type 'typeof App' is not assignable to parameter of type 'ComponentType<RouteComponentType<any>>'.
@@ -13,7 +13,7 @@ class App extends React.Component<AppProps, {}> {
     return (
       <main>
         <Switch>
-          <Route exact path="/" component={Test}/>
+          <Route exact path="/" component={Home} />
         </Switch>
       </main>
     );

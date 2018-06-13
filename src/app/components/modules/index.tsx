@@ -5,7 +5,7 @@ const Loading = () => <div>Loading...</div>;
 
 const LoadableLoader = (options: any): any => Loadable(options);
 
-export const Test = LoadableLoader({
-  loader: () => import('./Test'),
+export const Home = LoadableLoader({
+  loader: () => import('./Home'),
   loading: Loading,
 });

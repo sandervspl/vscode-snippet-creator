@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as webpackMerge from 'webpack-merge';
 
+import * as MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+
 const srcPath = (p: string) => path.resolve(__dirname, '..', 'src/', p);
 
 const baseConfig: any = {
@@ -48,6 +50,10 @@ const baseConfig: any = {
             },
           },
         }],
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader'],
       },
       {
         test: /\.svg$/,
@@ -121,6 +127,9 @@ const baseConfig: any = {
       'styled-components': srcPath('app/services/styled-components.ts'),
     },
   },
+  plugins: [
+    new MonacoWebpackPlugin(),
+  ],
 };
 
 export default baseConfig;
