@@ -29,6 +29,8 @@ export class Editor extends React.Component<EditorProps> {
 
   componentDidMount() {
     this.editor = monaco.editor.create(this.editorContainer, { language: 'javascript' });
+    // @TODO: Add option for tabsize
+    this.editor.getModel().updateOptions({ tabSize: 2 });
 
     this.editor.onDidChangeModelContent(() => {
       const { tabId } = this.props.editorTabsStore;
