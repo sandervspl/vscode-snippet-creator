@@ -9,3 +9,8 @@ export const Home = LoadableLoader({
   loader: () => import('./Home'),
   loading: Loading,
 });
+
+export const Editor = LoadableLoader({
+  loader: () => import('./Editor'),
+  loading: Loading,
+});

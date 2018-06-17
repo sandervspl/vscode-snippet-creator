@@ -1,14 +1,11 @@
 import * as i from 'app/interfaces';
 
 export interface Colors {
-  black: string;
-  white: string;
-  primary: string;
-  text: string;
+  [colorName: string]: string;
 }
 
 export interface Fonts {
-  futura: string;
+  [fontName: string]: string;
 }
 
 export interface Theme {

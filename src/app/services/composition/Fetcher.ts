@@ -2,10 +2,10 @@ import * as i from 'app/interfaces';
 import { action, computed, observable } from 'mobx';
 import * as qs from 'qs';
 
-abstract class AsyncStore implements i.AsyncStore {
-  @observable private loading = false;
-  @observable private loaded = false;
-  @observable private error = false;
+export class Fetcher implements i.Fetcher {
+  @observable private loading: boolean = false;
+  @observable private loaded: boolean = false;
+  @observable private error: boolean = false;
 
   // Implementations can retrieve load states only with these functions.
   // Changing load state can only be done with setX actions.
@@ -29,14 +29,14 @@ abstract class AsyncStore implements i.AsyncStore {
     this.loading = true;
     this.loaded = false;
     this.error = false;
-  };
+  }
 
   @action
   public setSuccess = () => {
     this.loading = false;
     this.loaded = true;
     this.error = false;
-  };
+  }
 
   @action
   public setFailed = (err: any) => {
@@ -46,7 +46,7 @@ abstract class AsyncStore implements i.AsyncStore {
 
     // tslint:disable-next-line no-console
     console.log(err);
-  };
+  }
 
   public get apiUri(): string {
     const env = process.env.NODE_ENV || 'development';
@@ -56,20 +56,21 @@ abstract class AsyncStore implements i.AsyncStore {
     }[env];
   }
 
-  public get api(): i.ApiHelper {
-    return {
-      get: ({ path, query, withAuth }: i.GenerateOptions) =>
-        this.request(this.generateOptions({ method: 'GET', path, query, withAuth })),
-      del: ({ path, query, withAuth }: i.GenerateOptions) =>
-        this.request(this.generateOptions({ method: 'DELETE', path, query, withAuth })),
-      post: ({ path, body, withAuth }: i.GenerateOptions) =>
-        this.request(this.generateOptions({ method: 'POST', path, body, withAuth })),
-      put: ({ path, body, withAuth }: i.GenerateOptions) =>
-        this.request(this.generateOptions({ method: 'PUT', path, body, withAuth })),
-      patch: ({ path, body, withAuth }: i.GenerateOptions) =>
-        this.request(this.generateOptions({ method: 'PATCH', path, body, withAuth })),
-    };
-  }
+
+  get = ({ path, query, withAuth }: i.GenerateOptions) =>
+    this.request(this.generateOptions({ method: 'GET', path, query, withAuth }))
+
+  del = ({ path, query, withAuth }: i.GenerateOptions) =>
+    this.request(this.generateOptions({ method: 'DELETE', path, query, withAuth }))
+
+  post = ({ path, body, withAuth }: i.GenerateOptions) =>
+    this.request(this.generateOptions({ method: 'POST', path, body, withAuth }))
+
+  put = ({ path, body, withAuth }: i.GenerateOptions) =>
+    this.request(this.generateOptions({ method: 'PUT', path, body, withAuth }))
+
+  patch = ({ path, body, withAuth }: i.GenerateOptions) =>
+    this.request(this.generateOptions({ method: 'PATCH', path, body, withAuth }))
 
   private request = async ({ path, options, handle401 }: i.RequestOptions): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -77,16 +78,17 @@ abstract class AsyncStore implements i.AsyncStore {
         .then(response => {
           const unauthorized = response.status === 401 || response.status === 403;
 
-          if (unauthorized && handle401) {
-            window.localStorage.removeItem('JWTTOKEN');
-          }
+          // if (unauthorized && handle401) {
+          //   s.localStorage.jwToken.clear();
+          //   window.localStorage.removeItem('JWTTOKEN');
+          // }
 
           // FOR DELETE CALLS WHEN BACK-END DOESN'T RETURN ANYTHING
           if (response.status === 204) return;
 
           if (response.ok) {
-            const token = response.headers.get('JWT-Token');
-            if (token) window.localStorage.setItem('JWTTOKEN', token);
+            // const token = response.headers.get('JWT-Token');
+            // if (token) window.localStorage.setItem('JWTTOKEN', token);
             return response.json();
           }
 
@@ -99,7 +101,7 @@ abstract class AsyncStore implements i.AsyncStore {
           reject(error);
         });
     });
-  };
+  }
 
   private generateOptions = (options: i.GenerateOptions): i.RequestOptions => {
     const { method, path, withAuth = false, query, body } = options;
@@ -115,7 +117,5 @@ abstract class AsyncStore implements i.AsyncStore {
       },
       handle401: withAuth,
     };
-  };
+  }
 }
-
-export default AsyncStore;

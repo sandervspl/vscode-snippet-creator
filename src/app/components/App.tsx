@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { Home } from './modules';
 
 // @ts-ignore
-// Argument of type 'typeof App' is not assignable to parameter of type 'ComponentType<RouteComponentType<any>>'.
+// TypeScript issue
 @withRouter // necessary for App to re-render on route change
 @observer
 class App extends React.Component<AppProps, {}> {

@@ -1,0 +1,30 @@
+import * as i from 'app/interfaces';
+import { observable, computed, action } from 'mobx';
+import * as _ from 'lodash';
+
+class EditorTabsStore implements i.EditorTabsStore {
+  @observable tabId = 0;
+  @observable tabs: i.Snippet[] = [{ id: 0, name: '', prefix: '' }];
+
+  @computed
+  get activeTab(): i.Snippet {
+    return this.tabs[this.tabId];
+  }
+
+  @action
+  public addTab = (name: string, prefix: string) => {
+    this.tabs = [
+      ...(this.tabs.length > 1 ? this.tabs.filter(tab => tab.id !== 0) : []),
+      {
+        id: this.tabs.length,
+        name,
+        prefix,
+      },
+      this.tabs.find(tab => tab.id === 0),
+    ];
+  }
+}
+
+const store = new EditorTabsStore();
+
+export default store;

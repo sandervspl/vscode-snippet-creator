@@ -2,10 +2,11 @@ import * as i from 'app/interfaces';
 
 const theme: i.Theme = {
   color: {
-    black: '#000000',
+    black: '#1e1e1e',
     white: '#ffffff',
-    primary: '#2ecc71',
-    text: '#2f3f42',
+    primaryBg: '#1e1e1e',
+    primaryBgLight: '#2d2d2d',
+    primaryText: '#ffffff',
   },
 
   font: {

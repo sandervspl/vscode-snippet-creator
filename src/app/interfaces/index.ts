@@ -1,8 +1,10 @@
 export { History } from 'history';
 
 export * from 'services/types';
+export * from 'services/composition/types';
 
-export * from 'stores/Test/types';
-export { AsyncStore } from 'stores/abstract/types';
+export * from 'stores/EditorTabs/types';
+export * from 'stores/Editor/types';
+export * from 'stores/Output/types';
 
 export * from 'styles/types';

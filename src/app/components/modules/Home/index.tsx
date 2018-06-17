@@ -1,68 +1,53 @@
+import * as i from 'app/interfaces';
 import * as React from 'react';
 import * as monaco from 'monaco-editor';
+import { Editor } from 'modules/Editor';
+import { inject, observer } from 'mobx-react';
+import Stores from 'app/stores';
 
-interface SnippetOutput {
-  [name: string]: {
-    prefix: string;
-    body: string[];
-    description?: string;
-  }
-}
-
-class Home extends React.Component<{}, HomeProps> {
-  editorContainer: HTMLElement;
-  editor: monaco.editor.IStandaloneCodeEditor;
+@inject(Stores.editorTabsStore, Stores.editorStore, Stores.outputStore)
+@observer
+class Home extends React.Component<HomeProps> {
+  outputContainer: HTMLElement;
+  outputEditor: monaco.editor.IStandaloneCodeEditor;
 
   state = {
     value: '',
-    output: {},
+    output: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.value !== this.state.value) {
-      this.editor.setValue(this.state.value);
-      
-      // @TODO: turn state.output to a JSON
-      // console.log(this.state.output);
-    }
-  }
-
   componentDidMount() {
-    this.editor = monaco.editor.create(this.editorContainer, { language: 'javascript' });
+    this.outputEditor = monaco.editor.create(this.outputContainer, { language: 'json' });
+    this.outputEditor.setValue(this.props.outputStore.body);
     monaco.editor.setTheme('vs-dark');
-
-    this.editor.onDidChangeModelContent(() => {
-      const value = this.editor.getValue();
-
-      const output: SnippetOutput = {
-        'test': {
-          prefix: 'test',
-          body: value.split('\n'),
-        },
-      };
-
-      this.setState({
-        value,
-        output: JSON.stringify(output, null, 2),
-      });
-    });
   }
 
-  assignRef = (c: HTMLElement) => {
-    this.editorContainer = c;
+  componentDidUpdate() {
+    this.outputEditor.setValue(this.props.outputStore.body);
+  }
+  
+  assignRef2 = (c: HTMLElement) => {
+    this.outputContainer = c;
   }
   
   render() {
+    const { tabId } = this.props.editorTabsStore;
+    // Import to rerender when output body changes
+    const { body } = this.props.outputStore;
+    
     return (
-      <>
-        <h1>hello</h1>
-        <section ref={this.assignRef} style={{width:'800px', height:'600px', border:'1px solid #ccc'}} />
-      </>
+      <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
+        <Editor tabId={tabId} />
+        <section ref={this.assignRef2} style={{width:'50%', height:'100%'}} />
+      </div>
     );
   }
 }
 
 interface HomeProps {
+  editorTabsStore?: i.EditorTabsStore;
+  editorStore?: i.EditorStore;
+  outputStore?: i.OutputStore;
   value: string;
   output: string; // stringified JSON
 }
