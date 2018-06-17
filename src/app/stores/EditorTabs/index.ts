@@ -3,6 +3,7 @@ import { observable, computed, action } from 'mobx';
 import * as _ from 'lodash';
 
 class EditorTabsStore implements i.EditorTabsStore {
+  // tabId is is NOT related to Snippet.id
   @observable tabId = 0;
   @observable tabs: i.Snippet[] = [{ id: 0, name: '', prefix: '' }];
 
@@ -22,6 +23,8 @@ class EditorTabsStore implements i.EditorTabsStore {
       },
       this.tabs.find(tab => tab.id === 0),
     ];
+
+    this.tabId = this.tabs.length - 2;
   }
 }
 
