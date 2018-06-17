@@ -1,22 +1,12 @@
 import * as i from 'app/interfaces';
 import * as React from 'react';
-import styled from 'styled-components';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Tabs, Tab, Modal, TextField, Button } from '@material-ui/core';
+import { Tab, Modal, Button } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
 import Stores from 'app/stores';
 import { Modal as ModalInner } from 'components/common';
-
-const Form = styled.form`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-`;
-
-const Input = styled(TextField)`
-  flex: 1;
-`;
+import { StyledTabs, Form, Input } from './styled';
 
 @inject(Stores.editorTabsStore)
 @observer
@@ -65,7 +55,7 @@ class TabsContainer extends React.Component<TabsProps> {
   render() {
     return (
       <>
-        <Tabs
+        <StyledTabs
           value={this.props.tabId}
           onChange={this.handleTabChange}
           scrollable
@@ -75,7 +65,7 @@ class TabsContainer extends React.Component<TabsProps> {
             const tabProps = tab.id === 0 ? { icon: <AddCircle /> } : { label: tab.name };
             return <Tab key={tab.id} {...tabProps} />;
           })}
-        </Tabs>
+        </StyledTabs>
 
         <Modal open={this.open} onClose={this.handleClose}>
           <ModalInner>

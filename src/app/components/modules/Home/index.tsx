@@ -1,9 +1,11 @@
 import * as i from 'app/interfaces';
 import * as React from 'react';
 import * as monaco from 'monaco-editor';
-import { Editor } from 'modules/Editor';
 import { inject, observer } from 'mobx-react';
+import { Toolbar, Typography } from '@material-ui/core';
 import Stores from 'app/stores';
+import { Editor } from 'modules/Editor';
+import { Container, StyledAppBar, EditorsContainer } from './components/styled';
 
 @inject(Stores.editorTabsStore, Stores.editorStore, Stores.outputStore)
 @observer
@@ -36,10 +38,19 @@ class Home extends React.Component<HomeProps> {
     const { body } = this.props.outputStore;
     
     return (
-      <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
-        <Editor tabId={tabId} />
-        <section ref={this.assignRef2} style={{width:'50%', height:'100%'}} />
-      </div>
+      <Container>
+        <StyledAppBar color="default" position="static">
+          <Toolbar>
+            <Typography variant="title" color="default">
+              VSCode Snippet Creator
+            </Typography>
+          </Toolbar>
+        </StyledAppBar>
+        <EditorsContainer>
+          <Editor tabId={tabId} />
+          <section ref={this.assignRef2} style={{width:'50%', height:'100%'}} />
+        </EditorsContainer>
+      </Container>
     );
   }
 }
