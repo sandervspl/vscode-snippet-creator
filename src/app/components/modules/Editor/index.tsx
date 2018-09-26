@@ -12,7 +12,7 @@ export class Editor extends React.Component<EditorProps> {
   editorContainer: HTMLElement;
   editor: monaco.editor.IStandaloneCodeEditor;
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: EditorProps) {
     const { tabId: prevTabId } = prevProps;
     const { editorStore, tabId } = this.props;
 

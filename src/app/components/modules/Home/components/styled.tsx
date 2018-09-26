@@ -6,10 +6,15 @@ export const Container = styled.div`
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+
+  h2 {
+    color: ${props => props.theme.color.primaryText};
+  }
 `;
 
 export const StyledAppBar = styled(AppBar)`
   height: 64px;
+  background-color: ${props => props.theme.color.primaryBgLight} !important;
 `;
 
 export const EditorsContainer = styled.div`
