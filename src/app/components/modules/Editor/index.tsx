@@ -3,7 +3,7 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Stores from 'app/stores';
-import { EditorContainer, MonacoEditor } from './components/styled';
+import { EditorContainer, MonacoEditor } from 'common/Editor';
 import { Tabs } from './components';
 
 @inject(Stores.editorTabsStore, Stores.editorStore)

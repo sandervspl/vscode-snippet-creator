@@ -6,7 +6,7 @@ const theme: i.Theme = {
     white: '#ffffff',
     primaryBg: '#1e1e1e',
     primaryBgLight: '#2d2d2d',
-    primaryText: '#ffffff',
+    primaryText: '#e1e1e1',
   },
 
   font: {

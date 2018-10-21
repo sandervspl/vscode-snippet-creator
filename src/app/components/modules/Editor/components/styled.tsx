@@ -1,17 +1,6 @@
 import styled from 'styled-components';
 import { Tabs, TextField } from '@material-ui/core';
 
-export const EditorContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  height: 100%;
-`;
-
-export const MonacoEditor = styled.div`
-  height: 100%;
-`;
-
 export const Form = styled.form`
   display: flex;
   justify-content: space-between;
@@ -41,8 +30,13 @@ export const StyledTabs = styled(Tabs)`
   button {
     color: ${props => props.theme.color.primaryText};
 
-    &[aria-selected="true"] {
+    &[aria-selected="true"],
+    &:hover {
       background-color: ${props => props.theme.color.primaryBgLight};
+
+      svg {
+        fill: ${props => props.theme.color.white};
+      }
     }
   }
 `;

@@ -16,8 +16,11 @@ class OutputStore implements i.OutputStore {
         body: this.value.split('\n'),
       },
     };
-    
-    return JSON.stringify(output, null, 2);
+
+    let outputStr = JSON.stringify(output, null, 2);
+    outputStr = outputStr.substr(2, outputStr.length - 4);
+
+    return outputStr;
   }
 
   set body(value: string) {

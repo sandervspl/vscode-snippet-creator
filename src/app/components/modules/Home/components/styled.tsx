@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { AppBar } from '@material-ui/core';
-import { theme } from 'app/styles';
 
 export const Container = styled.div`
   display: flex;

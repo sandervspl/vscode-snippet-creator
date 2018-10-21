@@ -11,3 +11,8 @@ export const Editor = Loadable({
   loader: () => import(/* webpackChunkName: "Editor" */ './Editor'),
   loading: LoadableComponent,
 });
+
+export const OutputEditor = Loadable({
+  loader: () => import(/* webpackChunkName: "OutputEditor" */ './OutputEditor'),
+  loading: LoadableComponent,
+});
