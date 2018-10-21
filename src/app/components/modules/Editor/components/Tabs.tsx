@@ -2,10 +2,10 @@ import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Tab, Modal, Button } from '@material-ui/core';
+import { Tab, Button, Typography } from '@material-ui/core';
 import { AddCircle } from '@material-ui/icons';
 import Stores from 'app/stores';
-import { Modal as ModalInner } from 'components/common';
+import { Modal, ModalInner } from 'common/Modal';
 import { StyledTabs, Form, Input } from './styled';
 
 @inject(Stores.editorTabsStore)
@@ -69,6 +69,7 @@ class TabsContainer extends React.Component<TabsProps> {
 
         <Modal open={this.open} onClose={this.handleClose}>
           <ModalInner>
+            <Typography variant="title">New Snippet</Typography>
             <Form noValidate autoComplete="off">
               <Input
                 id="name"
@@ -84,7 +85,11 @@ class TabsContainer extends React.Component<TabsProps> {
                 onChange={this.handleChange('prefix')}
                 margin="normal"
               />
-              <Button variant="contained" color="secondary" onClick={this.handleButtonClick}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleButtonClick}
+              >
                 Add snippet
               </Button>
             </Form>

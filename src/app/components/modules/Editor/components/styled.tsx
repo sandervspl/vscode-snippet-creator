@@ -20,6 +20,18 @@ export const Form = styled.form`
 
 export const Input = styled(TextField)`
   flex: 1;
+
+  > div {
+    &::before,
+    &::after {
+      border-color: ${props => props.theme.color.primaryText} !important;
+    }
+  }
+
+  input,
+  label {
+    color: ${props => props.theme.color.primaryText} !important;
+  }
 `;
 
 export const StyledTabs = styled(Tabs)`

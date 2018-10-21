@@ -1,15 +1,26 @@
 import styled from 'styled-components';
+import { Modal as MaterialModal } from '@material-ui/core';
 
-export const Modal = styled.div`
+export const Modal = styled(MaterialModal)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalInner = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
-  height: 300px;
-  background: white;
-  position: absolute;
-  left: calc(50% - 250px);
-  top: calc(50% - 150px);
-  padding: 20px;
+  padding: 40px;
+  width: 300px;
+  background: ${props => props.theme.color.primaryBgLight};
   border-radius: 4px;
   outline: 0;
+
+  > * {
+    color: ${props => props.theme.color.primaryText} !important;
+  }
+
+  button:last-of-type {
+    margin-top: 20px;
+  }
 `;
