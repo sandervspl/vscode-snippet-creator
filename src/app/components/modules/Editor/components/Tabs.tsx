@@ -51,19 +51,29 @@ class TabsContainer extends React.Component<TabsProps> {
     addTab(this.name, this.prefix);
     this.handleClose();
   }
-  
+
   render() {
+    const { tabId, editorTabsStore } = this.props;
+
     return (
       <>
         <StyledTabs
-          value={this.props.tabId}
+          value={tabId}
           onChange={this.handleTabChange}
           scrollable
           scrollButtons="off"
+          tabsAmount={editorTabsStore.tabs.length}
         >
-          {this.props.editorTabsStore.tabs.map((tab) => {
-            const tabProps = tab.id === 0 ? { icon: <AddCircle /> } : { label: tab.name };
-            return <Tab key={tab.id} {...tabProps} />;
+          {editorTabsStore.tabs.map((tab) => {
+            const tabProps = tab.id === 0
+              ? { icon: <AddCircle /> }
+              : { label: tab.name };
+
+            return (
+              <Tab key={tab.id} {...tabProps}>
+                test
+              </Tab>
+            );
           })}
         </StyledTabs>
 
