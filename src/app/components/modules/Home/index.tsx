@@ -1,7 +1,8 @@
 import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Toolbar, Typography } from '@material-ui/core';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Stores from 'app/stores';
 import { Editor, OutputEditor } from '@modules';
 import { Container, StyledAppBar, EditorsContainer } from './components/styled';

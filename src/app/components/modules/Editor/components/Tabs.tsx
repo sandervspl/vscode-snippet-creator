@@ -2,11 +2,28 @@ import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import { Tab, Button, Typography } from '@material-ui/core';
-import { AddCircle } from '@material-ui/icons';
+import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { AddCircle, Close } from '@material-ui/icons';
 import Stores from 'app/stores';
 import { Modal, ModalInner } from 'common/Modal';
-import { StyledTabs, Form, Input } from './styled';
+import { StyledTabs, Form, Input, TabContainer, CloseButton } from './styled';
+
+const CustomTab = (tab, editorTabsStore, tabProps) => () => (
+  <TabContainer
+    key={tab.id}
+    tabsAmount={editorTabsStore.tabs.length}
+  >
+    {tabProps.icon || tabProps.label}
+    {/* <Tab {...tabProps} /> */}
+    {tabProps.label && (
+      <CloseButton>
+        <Close onClick={this.handleRemove} />
+      </CloseButton>
+    )}
+  </TabContainer>
+);
 
 @inject(Stores.editorTabsStore)
 @observer
@@ -46,10 +63,16 @@ class TabsContainer extends React.Component<TabsProps> {
     this[name] = event.currentTarget.value;
   }
 
-  @action handleButtonClick = () => {
+  @action
+  handleButtonClick = () => {
     const { addTab } = this.props.editorTabsStore;
     addTab(this.name, this.prefix);
     this.handleClose();
+  }
+
+  @action
+  handleRemove = () => {
+    console.log(1);
   }
 
   render() {
@@ -70,9 +93,11 @@ class TabsContainer extends React.Component<TabsProps> {
               : { label: tab.name };
 
             return (
-              <Tab key={tab.id} {...tabProps}>
-                test
-              </Tab>
+              <Tab
+                key={tab.id}
+                {...tabProps}
+                // component={CustomTab(tab, editorTabsStore, tabProps)}
+              />
             );
           })}
         </StyledTabs>

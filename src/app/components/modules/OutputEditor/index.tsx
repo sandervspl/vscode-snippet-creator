@@ -2,7 +2,7 @@ import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import * as monaco from 'monaco-editor';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Stores from 'app/stores';
 import { EditorContainer } from 'common/Editor';
