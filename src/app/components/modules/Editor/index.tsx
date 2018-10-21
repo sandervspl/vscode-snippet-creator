@@ -1,4 +1,4 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
@@ -12,7 +12,7 @@ export class Editor extends React.Component<EditorProps> {
   editorContainer: HTMLElement;
   editor: monaco.editor.IStandaloneCodeEditor;
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: EditorProps) {
     const { tabId: prevTabId } = prevProps;
     const { editorStore, tabId } = this.props;
 
@@ -28,7 +28,12 @@ export class Editor extends React.Component<EditorProps> {
   }
 
   componentDidMount() {
-    this.editor = monaco.editor.create(this.editorContainer, { language: 'javascript' });
+    this.editor = monaco.editor.create(this.editorContainer, {
+      language: 'javascript',
+      minimap: {
+        enabled: false,
+      },
+    });
     // @TODO: Add option for tabsize
     this.editor.getModel().updateOptions({ tabSize: 2 });
 
@@ -53,7 +58,7 @@ export class Editor extends React.Component<EditorProps> {
     return (
       <EditorContainer>
         <Tabs tabId={editorTabsStore.tabId} />
-        <MonacoEditor innerRef={this.assignRef} />
+        <MonacoEditor ref={this.assignRef} />
       </EditorContainer>
     );
   }
@@ -64,3 +69,5 @@ export interface EditorProps {
   editorTabsStore?: i.EditorTabsStore;
   tabId: number;
 }
+
+export default Editor;

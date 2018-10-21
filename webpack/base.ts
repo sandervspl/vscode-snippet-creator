@@ -1,17 +1,17 @@
 import * as path from 'path';
 import * as webpackMerge from 'webpack-merge';
-
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
-const srcPath = (p: string) => path.resolve(__dirname, '..', 'src/', p);
+const srcPath = (p: string) => path.resolve(__dirname, '../src/', p);
 
 const baseConfig: any = {
-  mode: 'production',
-  devtool: 'cheap-source-map',
   output: {
-    path: path.resolve(__dirname, '..', 'dist'),
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].js',
+    path: path.join(__dirname, '../dist'),
     publicPath: '/',
-    filename: '[name].js',
   },
   optimization: {
     splitChunks: {
@@ -19,7 +19,7 @@ const baseConfig: any = {
         commons: {
           name: 'vendors',
           test: /node_modules/,
-          chunks: 'initial',
+          chunks: 'all',
         },
       },
       // Files will invalidate i. e. when more chunks with the same vendors are added.
@@ -34,20 +34,10 @@ const baseConfig: any = {
     rules: [
       {
         test: /\.tsx?$/,
-        exclude: /node_modules/,
         use: [{
-          loader: 'babel-loader',
+          loader: 'ts-loader',
           options: {
-            babelrc: true,
-            plugins: ['react-hot-loader/babel'],
-          },
-        }, {
-          loader: 'awesome-typescript-loader',
-          options: {
-            compilerOptions: {
-              module: 'commonjs',
-              target: 'es2015',
-            },
+            transpileOnly: true,
           },
         }],
       },
@@ -59,15 +49,11 @@ const baseConfig: any = {
         test: /\.svg$/,
         oneOf: [
           {
-            resource: /external/,
-            loader: 'url-loader',
-            query: {
-              limit: 10000,
-              name: 'static/[name].[ext]',
-            },
+            resourceQuery: /external/,
+            loader: 'url-loader?limit=10000',
           },
           {
-            loader: ['babel-loader', { loader: 'svg-react-loader' }],
+            loader: '@svgr/webpack',
           },
         ],
       },
@@ -89,14 +75,8 @@ const baseConfig: any = {
         ],
       },
       {
-        test: /\.json$/,
-        loader: 'file-loader',
-        query: { name: '[name].json' },
-        type: 'javascript/auto',
-      },
-      {
         exclude: [
-          /\.js$/,
+          /\.jsx?$/,
           /\.tsx?$/,
           /\.css$/,
           /\.svg$/,
@@ -111,24 +91,30 @@ const baseConfig: any = {
   },
   resolve: {
     extensions: ['*', '.js', '.ts', '.tsx'],
-    alias: {
-      app: srcPath('app'),
-      common: srcPath('app/components/common'),
-      components: srcPath('app/components'),
-      config: srcPath('config'),
-      fonts: srcPath('app/static/fonts'),
-      images: srcPath('app/static/images'),
-      modules: srcPath('app/components/modules'),
-      server: srcPath('server'),
-      services: srcPath('app/services'),
-      stores: srcPath('app/stores'),
-      styles: srcPath('app/styles'),
-      vectors: srcPath('app/static/vectors'),
-      'styled-components': srcPath('app/services/styled-components.ts'),
-    },
+    plugins: [
+      new TsconfigPathsPlugin(),
+    ],
   },
   plugins: [
     new MonacoWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'VSCode Snippet Generator',
+      filename: 'index.html',
+      inject: true,
+      template: path.join(__dirname, '../src/index.html'),
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true,
+      },
+    }),
   ],
 };
 

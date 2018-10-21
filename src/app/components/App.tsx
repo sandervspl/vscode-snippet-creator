@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { withRouter } from 'react-router';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { Home } from './modules';
 
-// @ts-ignore
-// TypeScript issue
-@withRouter // necessary for App to re-render on route change
 @observer
-class App extends React.Component<AppProps, {}> {
+class App extends React.Component<AppProps> {
   render() {
     return (
       <main>
@@ -20,6 +17,7 @@ class App extends React.Component<AppProps, {}> {
   }
 }
 
-export interface AppProps {}
+export interface AppProps extends RouteComponentProps {}
 
-export default App;
+// withRouter is necessary for App to re-render on route change (MobX's fault)
+export default withRouter(App);

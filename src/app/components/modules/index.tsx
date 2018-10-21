@@ -1,16 +1,13 @@
-import * as React from 'react';
 import * as Loadable from 'react-loadable';
+import { LoadableComponent } from '@common';
 
-const Loading = () => <div>Loading...</div>;
-
-const LoadableLoader = (options: any): any => Loadable(options);
-
-export const Home = LoadableLoader({
-  loader: () => import('./Home'),
-  loading: Loading,
+/* tslint:disable space-in-parens */
+export const Home = Loadable({
+  loader: () => import(/* webpackChunkName: "Home" */ './Home'),
+  loading: LoadableComponent,
 });
 
-export const Editor = LoadableLoader({
-  loader: () => import('./Editor'),
-  loading: Loading,
+export const Editor = Loadable({
+  loader: () => import(/* webpackChunkName: "Editor" */ './Editor'),
+  loading: LoadableComponent,
 });

@@ -26,9 +26,11 @@ export const storeDirectory = {
   outputStore,
 };
 
-export const history = syncHistoryWithStore(browserHistory, routingStore);
+const historySyncedStore = syncHistoryWithStore(browserHistory, routingStore);
+
+export const history = historySyncedStore;
 
 // DEBUGGING
-if (!__PROD__) {
+if (__DEV__) {
   window.stores = storeDirectory;
 }

@@ -1,12 +1,11 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 
 const theme: i.Theme = {
   color: {
-    black: '#1e1e1e',
+    black: '#000000',
     white: '#ffffff',
-    primaryBg: '#1e1e1e',
-    primaryBgLight: '#2d2d2d',
-    primaryText: '#ffffff',
+    primary: '#2ecc71',
+    text: '#2f3f42',
   },
 
   font: {

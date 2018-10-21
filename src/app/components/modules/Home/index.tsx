@@ -1,10 +1,10 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 import * as React from 'react';
 import * as monaco from 'monaco-editor';
 import { inject, observer } from 'mobx-react';
 import { Toolbar, Typography } from '@material-ui/core';
 import Stores from 'app/stores';
-import { Editor } from 'modules/Editor';
+import { Editor } from '@modules';
 import { Container, StyledAppBar, EditorsContainer } from './components/styled';
 
 @inject(Stores.editorTabsStore, Stores.editorStore, Stores.outputStore)
@@ -19,7 +19,12 @@ class Home extends React.Component<HomeProps> {
   };
 
   componentDidMount() {
-    this.outputEditor = monaco.editor.create(this.outputContainer, { language: 'json' });
+    this.outputEditor = monaco.editor.create(this.outputContainer, {
+      language: 'json',
+      minimap: {
+        enabled: false,
+      },
+    });
     this.outputEditor.setValue(this.props.outputStore.body);
     monaco.editor.setTheme('vs-dark');
   }
@@ -39,16 +44,16 @@ class Home extends React.Component<HomeProps> {
     
     return (
       <Container>
-        <StyledAppBar color="default" position="static">
+        <StyledAppBar position="static">
           <Toolbar>
-            <Typography variant="title" color="default">
+            <Typography variant="title">
               VSCode Snippet Creator
             </Typography>
           </Toolbar>
         </StyledAppBar>
         <EditorsContainer>
           <Editor tabId={tabId} />
-          <section ref={this.assignRef2} style={{width:'50%', height:'100%'}} />
+          <section ref={this.assignRef2} style={{ width: '50%', height: '100%' }} />
         </EditorsContainer>
       </Container>
     );

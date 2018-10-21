@@ -1,4 +1,4 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 import { observable, computed, action } from 'mobx';
 import * as _ from 'lodash';
 

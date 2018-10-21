@@ -1,1 +1,2 @@
-export { default as StyledComponent } from './TypedStyledComponent';
+export { localStorageHelper } from './LocalStorage';
+export { preloadComponent } from './preloadComponent';

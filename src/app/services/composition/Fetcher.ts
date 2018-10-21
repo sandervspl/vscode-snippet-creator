@@ -1,6 +1,8 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 import { action, computed, observable } from 'mobx';
 import * as qs from 'qs';
+import { localStorageHelper } from '@services';
+import apiConfig from 'config/api';
 
 export class Fetcher implements i.Fetcher {
   @observable private loading: boolean = false;
@@ -51,11 +53,10 @@ export class Fetcher implements i.Fetcher {
   public get apiUri(): string {
     const env = process.env.NODE_ENV || 'development';
     return {
-      production: 'http://api.SOME_DOMAIN.com/api/v1/',
-      development: 'http://localhost:8080/api/v1/',
+      production: apiConfig.production,
+      development: apiConfig.development,
     }[env];
   }
-
 
   get = ({ path, query, withAuth }: i.GenerateOptions) =>
     this.request(this.generateOptions({ method: 'GET', path, query, withAuth }))
@@ -75,29 +76,26 @@ export class Fetcher implements i.Fetcher {
   private request = async ({ path, options, handle401 }: i.RequestOptions): Promise<any> => {
     return new Promise((resolve, reject) => {
       fetch(path, options)
-        .then(response => {
+        .then((response) => {
           const unauthorized = response.status === 401 || response.status === 403;
 
-          // if (unauthorized && handle401) {
-          //   s.localStorage.jwToken.clear();
-          //   window.localStorage.removeItem('JWTTOKEN');
-          // }
+          if (unauthorized && handle401) {
+            localStorageHelper.jwToken.clear();
+          }
 
           // FOR DELETE CALLS WHEN BACK-END DOESN'T RETURN ANYTHING
           if (response.status === 204) return;
 
           if (response.ok) {
-            // const token = response.headers.get('JWT-Token');
-            // if (token) window.localStorage.setItem('JWTTOKEN', token);
             return response.json();
           }
 
           return reject({ status: response.status, statusText: response.statusText });
         })
-        .then(json => {
+        .then((json) => {
           resolve(json);
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });

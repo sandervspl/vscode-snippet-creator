@@ -1,4 +1,4 @@
-import * as i from 'app/interfaces';
+import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
@@ -61,7 +61,7 @@ class TabsContainer extends React.Component<TabsProps> {
           scrollable
           scrollButtons="off"
         >
-          {this.props.editorTabsStore.tabs.map(tab => {
+          {this.props.editorTabsStore.tabs.map((tab) => {
             const tabProps = tab.id === 0 ? { icon: <AddCircle /> } : { label: tab.name };
             return <Tab key={tab.id} {...tabProps} />;
           })}
@@ -84,7 +84,7 @@ class TabsContainer extends React.Component<TabsProps> {
                 onChange={this.handleChange('prefix')}
                 margin="normal"
               />
-              <Button variant="contained" color="primary" onClick={this.handleButtonClick}>
+              <Button variant="contained" color="secondary" onClick={this.handleButtonClick}>
                 Add snippet
               </Button>
             </Form>

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Tabs, TextField } from '@material-ui/core';
-import { theme } from 'app/styles';
 
 export const EditorContainer = styled.section`
   display: flex;
@@ -24,14 +23,14 @@ export const Input = styled(TextField)`
 `;
 
 export const StyledTabs = styled(Tabs)`
-  background-color: ${theme.color.primaryBg};
+  background-color: ${props => props.theme.color.primaryBg};
   transition: background-color 1s ease-in-out;
 
   button {
-    color: ${theme.color.primaryText};
+    color: ${props => props.theme.color.primaryText};
 
-    &.MuiTab-selected-15 {
-      background-color: ${theme.color.primaryBgLight};
+    &[aria-selected="true"] {
+      background-color: ${props => props.theme.color.primaryBgLight};
     }
   }
 `;
