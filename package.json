@@ -42,6 +42,7 @@
     "react": "^16.5.2",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.2",
+    "react-helmet": "^5.2.0",
     "react-loadable": "^5.5.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -62,6 +63,7 @@
     "@types/qs": "^6.5.1",
     "@types/react": "^16.4.18",
     "@types/react-dom": "^16.0.9",
+    "@types/react-helmet": "^5.0.7",
     "@types/react-loadable": "^5.4.1",
     "@types/react-router": "^4.0.32",
     "@types/react-router-dom": "^4.3.1",
@@ -94,6 +96,7 @@
     "webpack-hot-middleware": "^2.24.2",
     "webpack-merge": "^4.1.2",
     "webpack-node-externals": "^1.6.0",
+    "webpack-pwa-manifest": "^3.7.1",
     "workbox-webpack-plugin": "^3.6.2"
   },
   "engines": {

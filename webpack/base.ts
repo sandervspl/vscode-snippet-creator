@@ -98,7 +98,7 @@ const baseConfig: any = {
   plugins: [
     new MonacoWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'VSCode Snippet Generator',
+      title: 'VSCode Snippet Creator',
       filename: 'index.html',
       inject: true,
       template: path.join(__dirname, '../src/index.html'),
