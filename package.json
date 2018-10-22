@@ -12,6 +12,7 @@
     "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register ./devServer.ts",
     "build": "NODE_ENV=production npm run clean && npm run build:js",
     "build:js": "webpack -p --hide-modules --config webpack/prod.ts",
+    "build:prod": "APP_ENV=production npm run build",
     "clean": "rimraf dist/",
     "lint": "eslint src/",
     "start": "node dist/server.js"
