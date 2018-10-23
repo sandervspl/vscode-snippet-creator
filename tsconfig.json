@@ -6,6 +6,7 @@
     "removeComments": true,
     "allowUnreachableCode": true,
     "experimentalDecorators": true,
+    "strictNullChecks": true,
     "pretty": true,
     "module": "commonjs",
     "target": "es2015",

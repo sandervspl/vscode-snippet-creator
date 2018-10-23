@@ -13,11 +13,11 @@ import { Form, Field, FormInner } from './styled';
 @observer
 class SettingsModal extends React.Component<Props> {
   handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.props.editorStore.options.language = event.target.value;
+    this.props.editorStore!.options.language = event.target.value;
   }
   
   handleIndentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.editorStore.options.indent = Number(event.target.value);
+    this.props.editorStore!.options.indent = Number(event.target.value);
   }
 
   render() {
@@ -34,7 +34,7 @@ class SettingsModal extends React.Component<Props> {
                 <Typography variant="body2">Indent</Typography>
                 <TextField
                   id="outlined-bare"
-                  defaultValue={editorStore.options.indent}
+                  defaultValue={editorStore!.options.indent}
                   onChange={this.handleIndentChange}
                   margin="normal"
                   variant="outlined"
@@ -45,7 +45,7 @@ class SettingsModal extends React.Component<Props> {
                 <TextField
                   id="outlined-select-currency"
                   select
-                  value={editorStore.options.language}
+                  value={editorStore!.options.language}
                   onChange={this.handleLanguageChange}
                   // SelectProps={{
                   //   MenuProps: {
