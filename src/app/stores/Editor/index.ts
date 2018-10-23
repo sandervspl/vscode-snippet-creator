@@ -1,6 +1,7 @@
 import * as i from '@types';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, reaction } from 'mobx';
 import outputStore from 'stores/Output';
+import { localStorageHelper } from '@services';
 
 class EditorStore implements i.EditorStore {
   @observable bodies: i.EditorBodies = {};
@@ -8,6 +9,16 @@ class EditorStore implements i.EditorStore {
     language: 'javascript',
     indent: 2,
   };
+
+  private updateStorage = reaction(
+    (): i.EditorOptions => ({
+      language: this.options.language,
+      indent: this.options.indent,
+    }),
+    (options) => {
+      localStorageHelper.editor.setOptions(options);
+    }
+  );
 
   // @computed
   public getBody(id: number): string {

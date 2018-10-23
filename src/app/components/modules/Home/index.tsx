@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Stores from 'app/stores';
 import { Editor, OutputEditor } from '@modules';
 import { Container, StyledAppBar, EditorsContainer } from './components/styled';
+import SettingsButton from './components/SettingsButton';
 
 @inject(Stores.editorTabsStore)
 @observer
@@ -18,8 +19,9 @@ class Home extends React.Component<HomeProps> {
         <StyledAppBar position="static">
           <Toolbar>
             <Typography variant="title">
-              VSCode Snippet Creator
+              Snippet Creator
             </Typography>
+            <SettingsButton />
           </Toolbar>
         </StyledAppBar>
         <EditorsContainer>

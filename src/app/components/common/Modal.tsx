@@ -10,8 +10,7 @@ export const Modal = styled(MaterialModal)`
 export const ModalInner = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 40px;
-  width: 300px;
+  min-width: 400px;
   background: ${props => props.theme.color.primaryBgLight};
   border-radius: 4px;
   outline: 0;

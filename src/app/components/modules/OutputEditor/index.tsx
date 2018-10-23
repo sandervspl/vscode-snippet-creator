@@ -16,6 +16,7 @@ class OutputEditor extends React.Component<OutputProps> {
 
   componentDidMount() {
     this.outputEditor = monaco.editor.create(this.outputContainer, {
+      automaticLayout: true,
       language: 'json',
       readOnly: true,
       minimap: {

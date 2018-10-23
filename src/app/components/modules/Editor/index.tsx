@@ -33,6 +33,7 @@ export class Editor extends React.Component<EditorProps> {
     const editorStorage = localStorageHelper.editor.get() as i.EditorLocalStorage;
     let { options } = editorStorage;
 
+    // Save default settings in localstorage
     if (!options) {
       options = {
         language: editorStore.options.language,
@@ -40,9 +41,13 @@ export class Editor extends React.Component<EditorProps> {
       };
 
       localStorageHelper.editor.setOptions(options);
+    } else {
+      // Save localstorage in state
+      editorStore.options = options;
     }
 
     this.editor = monaco.editor.create(this.editorContainer, {
+      automaticLayout: true,
       language: options.language,
       minimap: {
         enabled: false,
