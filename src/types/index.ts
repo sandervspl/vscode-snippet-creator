@@ -4,6 +4,7 @@ import { RouteComponentProps as IRouteComponentProps } from 'react-router-dom';
 
 export * from 'services/types';
 export * from 'services/composition/types';
+export * from 'services/localStorage/types';
 
 export * from 'stores/EditorTabs/types';
 export * from 'stores/Editor/types';

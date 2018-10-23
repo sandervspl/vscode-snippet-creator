@@ -4,6 +4,10 @@ import outputStore from 'stores/Output';
 
 class EditorStore implements i.EditorStore {
   @observable bodies: i.EditorBodies = {};
+  @observable options: i.EditorOptions = {
+    language: 'javascript',
+    indent: 2,
+  };
 
   // @computed
   public getBody(id: number): string {

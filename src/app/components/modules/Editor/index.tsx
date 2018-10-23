@@ -2,6 +2,7 @@ import * as i from '@types';
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
+import { localStorageHelper } from '@services';
 import Stores from 'app/stores';
 import { EditorContainer, MonacoEditor } from 'common/Editor';
 import { Tabs } from './components';
@@ -28,14 +29,29 @@ export class Editor extends React.Component<EditorProps> {
   }
 
   componentDidMount() {
+    const { editorStore } = this.props;
+    const editorStorage = localStorageHelper.editor.get() as i.EditorLocalStorage;
+    let { options } = editorStorage;
+
+    if (!options) {
+      options = {
+        language: editorStore.options.language,
+        indent: editorStore.options.indent,
+      };
+
+      localStorageHelper.editor.setOptions(options);
+    }
+
     this.editor = monaco.editor.create(this.editorContainer, {
-      language: 'javascript',
+      language: options.language,
       minimap: {
         enabled: false,
       },
     });
-    // @TODO: Add option for tabsize
-    this.editor.getModel().updateOptions({ tabSize: 2 });
+
+    this.editor.getModel().updateOptions({
+      tabSize: options.indent,
+    });
 
     this.editor.onDidChangeModelContent(() => {
       const { tabId } = this.props.editorTabsStore;

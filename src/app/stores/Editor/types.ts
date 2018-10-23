@@ -1,5 +1,8 @@
+import * as i from '@types';
+
 export interface EditorStore {
-  bodies: EditorBodies;
+  bodies: i.EditorBodies;
+  options: i.EditorOptions;
   getBody: (id: number) => string;
   setBody: (id: number, value: string) => void;
 }
@@ -14,4 +17,9 @@ export interface SnippetOutput {
 
 export interface EditorBodies {
   [index: number]: string;
+}
+
+export interface EditorOptions {
+  language: string;
+  indent: number;
 }

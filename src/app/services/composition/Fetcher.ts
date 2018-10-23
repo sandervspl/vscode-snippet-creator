@@ -1,7 +1,7 @@
 import * as i from '@types';
 import { action, computed, observable } from 'mobx';
 import * as qs from 'qs';
-import { localStorageHelper } from '@services';
+// import { localStorageHelper } from '@services';
 import apiConfig from 'config/api';
 
 export class Fetcher implements i.Fetcher {
@@ -79,9 +79,9 @@ export class Fetcher implements i.Fetcher {
         .then((response) => {
           const unauthorized = response.status === 401 || response.status === 403;
 
-          if (unauthorized && handle401) {
-            localStorageHelper.jwToken.clear();
-          }
+          // if (unauthorized && handle401) {
+          //   localStorageHelper.jwToken.clear();
+          // }
 
           // FOR DELETE CALLS WHEN BACK-END DOESN'T RETURN ANYTHING
           if (response.status === 204) return;
