@@ -6,6 +6,7 @@ export const Input = styled(TextField).attrs({
   margin: 'dense',
 })`
   padding: 0 !important;
+  margin: 0 !important;
 
   fieldset {
     border-color: ${props => props.theme.color.border};

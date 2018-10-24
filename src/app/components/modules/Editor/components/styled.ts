@@ -90,4 +90,8 @@ export const NewSnippetInnerModal = styled(ModalInner)`
   button {
     margin-top: 20px;
   }
+
+  div:not(:last-of-type) {
+    margin-bottom: 8px !important;
+  }
 `;
