@@ -1,5 +1,6 @@
 import * as i from '@types';
 import * as React from 'react';
+import { reaction } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import { localStorageHelper } from '@services';
@@ -12,6 +13,23 @@ import { Tabs } from './components';
 export class Editor extends React.Component<EditorProps> {
   editorContainer: HTMLElement;
   editor: monaco.editor.IStandaloneCodeEditor;
+
+  // Update editor on settings changes
+  updateEditorOptions = reaction(
+    (): i.EditorOptions => ({
+      indent: this.props.editorStore!.options.indent,
+      language: this.props.editorStore!.options.language,
+    }),
+    (options) => {
+      // Set indent
+      this.editor.getModel().updateOptions({
+        tabSize: options.indent,
+      });
+
+      // Set language
+      monaco.editor.setModelLanguage(this.editor.getModel(), options.language);
+    }
+  );
 
   componentDidUpdate(prevProps: EditorProps) {
     const { tabId: prevTabId } = prevProps;
