@@ -12,12 +12,33 @@ import { Field, FormInner, SettingsInnerModal, Buttons } from './styled';
 @inject(Stores.editorStore)
 @observer
 class SettingsModal extends React.Component<Props> {
+  private originalSettings: i.EditorOptions;
+  private newSettings: i.EditorOptions;
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.open && this.props.open) {
+      this.originalSettings = this.props.editorStore!.options;
+      this.newSettings = this.originalSettings;
+    }
+  }
+
   handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    this.props.editorStore!.options.language = event.target.value;
+    this.newSettings.language = event.target.value;
   }
   
   handleIndentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.editorStore!.options.indent = Number(event.target.value);
+    this.newSettings.indent = Number(event.target.value);
+  }
+
+  // TODO: FIX
+  onCancel = () => {
+    this.props.editorStore!.options = this.originalSettings;
+    this.props.onClose();
+  }
+
+  onSave = () => {
+    this.props.editorStore!.options = this.newSettings;
+    this.props.onClose();
   }
 
   render() {
@@ -52,10 +73,14 @@ class SettingsModal extends React.Component<Props> {
           </FormInner>
 
           <Buttons>
-            <Button onClick={onClose}>
+            <Button onClick={this.onCancel}>
               Cancel
             </Button>
-            <Button variant="contained" color="secondary" onClick={onClose}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={this.onSave}
+            >
               Save
             </Button>
           </Buttons>
