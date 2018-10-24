@@ -1,13 +1,13 @@
 import * as i from '@types';
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Stores from 'app/stores';
-import { Modal, ModalInner } from 'common/Modal';
-import { Form, Field, FormInner } from './styled';
+import { H2, P } from 'common/Typography';
+import { Modal } from 'common/Modal';
+import { Input, Select } from 'common/Form';
+import { Field, FormInner, SettingsInnerModal, Buttons } from './styled';
 
 @inject(Stores.editorStore)
 @observer
@@ -25,53 +25,41 @@ class SettingsModal extends React.Component<Props> {
 
     return (
       <Modal open={open} onClose={onClose}>
-        <ModalInner>
-          <Form>
-            <Typography variant="title">Preferences</Typography>
+        <SettingsInnerModal>
+          <H2>Preferences</H2>
 
-            <FormInner>
-              <Field small>
-                <Typography variant="body2">Indent</Typography>
-                <TextField
-                  id="outlined-bare"
-                  defaultValue={editorStore!.options.indent}
-                  onChange={this.handleIndentChange}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </Field>
-              <Field>
-                <Typography variant="body2">Language</Typography>
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  value={editorStore!.options.language}
-                  onChange={this.handleLanguageChange}
-                  // SelectProps={{
-                  //   MenuProps: {
-                  //     className: classes.menu,
-                  //   },
-                  // }}
-                  // helperText="Please select your currency"
-                  margin="normal"
-                  variant="outlined"
-                >
-                  {['javascript', 'typescript'].map(option => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Field>
+          <FormInner>
+            <Field small>
+              <P>Indent</P>
+              <Input
+                defaultValue={editorStore!.options.indent}
+                onChange={this.handleIndentChange}
+              />
+            </Field>
+            <Field>
+              <P>Language</P>
+              <Select
+                value={editorStore!.options.language}
+                onChange={this.handleLanguageChange}
+              >
+                {['javascript', 'typescript'].map(option => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Field>
+          </FormInner>
 
-              <div>
-                <Button variant="contained" onClick={onClose}>
-                  Save
-                </Button>
-              </div>
-            </FormInner>
-          </Form>
-        </ModalInner>
+          <Buttons>
+            <Button onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="contained" color="secondary" onClick={onClose}>
+              Save
+            </Button>
+          </Buttons>
+        </SettingsInnerModal>
       </Modal>
     );
   }

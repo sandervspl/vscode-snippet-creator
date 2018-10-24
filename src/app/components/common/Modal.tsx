@@ -20,10 +20,6 @@ export const ModalInner = styled.div`
     color: ${props => props.theme.color.primaryText} !important;
   }
 
-  button:last-of-type {
-    margin-top: 20px;
-  }
-
   h2 {
     font-weight: 700;
   }

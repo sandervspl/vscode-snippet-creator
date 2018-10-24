@@ -84,6 +84,10 @@ interface TabContainerProps extends i.BaseStyled {
 
 export const NewSnippetInnerModal = styled(ModalInner)`
   h2 {
-    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-top: 20px;
   }
 `;

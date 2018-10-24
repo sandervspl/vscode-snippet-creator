@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 import AppBar from '@material-ui/core/AppBar';
+import { ModalInner } from 'common/Modal';
+import { P } from 'common/Typography';
 
 export const Container = styled.div`
   display: flex;
@@ -34,26 +36,38 @@ export const SettingsContainer = styled.div`
     svg {
       margin-right: 5px;
       font-size: 18px;
-      /* fill: ${props => props.theme.color.primaryText}; */
     }
   }
 `;
 
-export const Form = styled.div`
+export const SettingsInnerModal = styled(ModalInner)`
+  padding: 30px 0;
+  width: 400px;
+
   h2 {
-    padding: 15px 20px;
-    border-bottom: black;
-    color: ${props => props.theme.color.primaryText} !important;
-    font-size: 1em;
+    margin: 0 20px 20px;
+  }
+
+  button {
+    &:first-of-type {
+      margin-right: 20px;
+      color: ${props => props.theme.color.primaryText};
+    }
   }
 `;
 
 export const FormInner = styled.div`
-  padding: 0 10px 10px;
+  margin-bottom: 20px;
+  background-color: #383838;
+`;
 
-  div:last-child {
-    display: flex;
-    justify-content: flex-end;
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px;
+
+  button {
+    min-width: 100px;
   }
 `;
 
@@ -61,8 +75,8 @@ export const Field = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  background-color: #383838;
+  margin: 10px 20px;
+  padding: 10px 0;
 
   &:first-of-type {
     border-radius: 4px 4px 0 0;
@@ -79,36 +93,16 @@ export const Field = styled.div`
   > p {
     font-size: 1em;
   }
-
-  > div {
-    margin: 0;
-  }
   
-  > * {
-    color: ${props => props.theme.color.primaryText} !important;
+  > * > div {
+    ${props => props.small && css`
+      width: 40px;
+      height: 40px;
+    `}
 
-    > div {
-      ${props => props.small && css`
-        width: 40px;
-        height: 40px;
-      `}
-      color: ${props => props.theme.color.primaryText} !important;
-
-      &:hover {
-        > fieldset {
-          border-color: ${props => props.theme.color.black} !important;
-        }
-      }
-
-      > fieldset {
-        padding: 0 !important;
-        border-color: ${props => props.theme.color.primaryBg} !important;
-
-        + input {
-          text-align: center;
-          padding: 0;
-        }
-      }
+    > fieldset + input {
+      text-align: center;
+      padding: 0;
     }
   }
 `;

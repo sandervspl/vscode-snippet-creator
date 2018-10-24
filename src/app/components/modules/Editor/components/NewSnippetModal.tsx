@@ -4,7 +4,7 @@ import { observable, action } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import Stores from 'app/stores';
-import { Title } from '@common';
+import { H2 } from 'common/Typography';
 import { Modal } from 'common/Modal';
 import { Input } from 'common/Form';
 import { Form, NewSnippetInnerModal } from './styled';
@@ -46,14 +46,14 @@ class NewSnippetModal extends React.Component<Props> {
     return (
       <Modal open={this.props.open} onClose={this.props.onClose}>
         <NewSnippetInnerModal>
-          <Title>New Snippet</Title>
+          <H2>New Snippet</H2>
           <Form noValidate autoComplete="off">
             <Input
               name="name"
               label="Name"
               value={this.name}
               onChange={this.handleChange}
-              margin="normal"
+              margin="dense"
               variant="outlined"
               ref={this.nameElement}
             />
@@ -62,7 +62,7 @@ class NewSnippetModal extends React.Component<Props> {
               label="Prefix"
               value={this.prefix}
               onChange={this.handleChange}
-              margin="normal"
+              margin="dense"
               variant="outlined"
             />
             <Button
