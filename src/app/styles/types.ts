@@ -1,15 +1,16 @@
 import * as i from '@types';
 
 export interface Colors {
-  black: string,
-  white: string,
-  primaryBg: string,
-  primaryBgLight: string,
-  primaryText: string,
+  black: string;
+  white: string;
+  primaryBg: string;
+  primaryBgLight: string;
+  primaryText: string;
+  border: string;
 }
 
 export interface Fonts {
-  futura: string;
+  primary: string;
 }
 
 export interface Theme {

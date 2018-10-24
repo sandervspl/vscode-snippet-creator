@@ -10,7 +10,8 @@ export const Modal = styled(MaterialModal)`
 export const ModalInner = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  padding: 30px;
+  min-width: 300px;
   background: ${props => props.theme.color.primaryBgLight};
   border-radius: 4px;
   outline: 0;
@@ -21,5 +22,9 @@ export const ModalInner = styled.div`
 
   button:last-of-type {
     margin-top: 20px;
+  }
+
+  h2 {
+    font-weight: 700;
   }
 `;

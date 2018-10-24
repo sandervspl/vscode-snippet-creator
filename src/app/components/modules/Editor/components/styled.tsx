@@ -1,28 +1,12 @@
 import * as i from '@types';
 import styled from 'styled-components';
 import Tabs from '@material-ui/core/Tabs';
-import TextField from '@material-ui/core/TextField';
+import { ModalInner } from 'common/Modal';
 
 export const Form = styled.form`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-`;
-
-export const Input = styled(TextField)`
-  flex: 1;
-
-  > div {
-    &::before,
-    &::after {
-      border-color: ${props => props.theme.color.primaryText} !important;
-    }
-  }
-
-  input,
-  label {
-    color: ${props => props.theme.color.primaryText} !important;
-  }
 `;
 
 export const CloseButton = styled.div`
@@ -97,3 +81,9 @@ export const TabContainer = styled.div<TabContainerProps>`
 interface TabContainerProps extends i.BaseStyled {
   tabsAmount: number;
 }
+
+export const NewSnippetInnerModal = styled(ModalInner)`
+  h2 {
+    text-align: center;
+  }
+`;
