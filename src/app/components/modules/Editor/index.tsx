@@ -19,12 +19,12 @@ export class Editor extends React.Component<EditorProps> {
 
     // Change body of editor when we switch tabs
     if (prevTabId !== tabId) {
-      this.editor.setValue(editorStore.getBody(tabId));
+      this.editor.setValue(editorStore!.getBody(tabId));
     }
 
     // Sync store value with editor value
-    if (this.editor.getValue() !== editorStore.getBody(tabId)) {
-      this.editor.setValue(editorStore.getBody(tabId));
+    if (this.editor.getValue() !== editorStore!.getBody(tabId)) {
+      this.editor.setValue(editorStore!.getBody(tabId));
     }
   }
 
@@ -36,14 +36,14 @@ export class Editor extends React.Component<EditorProps> {
     // Save default settings in localstorage
     if (!options) {
       options = {
-        language: editorStore.options.language,
-        indent: editorStore.options.indent,
+        language: editorStore!.options.language,
+        indent: editorStore!.options.indent,
       };
 
       localStorageHelper.editor.setOptions(options);
     } else {
       // Save localstorage in state
-      editorStore.options = options;
+      editorStore!.options = options;
     }
 
     this.editor = monaco.editor.create(this.editorContainer, {
@@ -59,11 +59,11 @@ export class Editor extends React.Component<EditorProps> {
     });
 
     this.editor.onDidChangeModelContent(() => {
-      const { tabId } = this.props.editorTabsStore;
+      const { tabId } = this.props.editorTabsStore!;
       const value = this.editor.getValue();
 
       // Update value in store
-      this.props.editorStore.setBody(tabId, value);
+      this.props.editorStore!.setBody(tabId, value);
 
       this.forceUpdate();
     });
@@ -78,7 +78,7 @@ export class Editor extends React.Component<EditorProps> {
     
     return (
       <EditorContainer>
-        <Tabs tabId={editorTabsStore.tabId} />
+        <Tabs tabId={editorTabsStore!.tabId} />
         <MonacoEditor ref={this.assignRef} />
       </EditorContainer>
     );

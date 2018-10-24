@@ -96,7 +96,10 @@ const baseConfig: any = {
     ],
   },
   plugins: [
-    new MonacoWebpackPlugin(),
+    new MonacoWebpackPlugin({
+      languages: ['json', 'javascript', 'typescript'],
+      features: ['coreCommands'],
+    }),
     new HtmlWebpackPlugin({
       title: 'VSCode Snippet Creator',
       filename: 'index.html',
