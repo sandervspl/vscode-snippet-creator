@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@styled-components';
 import { MonacoEditor } from 'common/Editor';
 
 export const TopContainer = styled.div`

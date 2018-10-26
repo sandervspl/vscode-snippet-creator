@@ -1,18 +1,14 @@
-import * as Loadable from 'react-loadable';
-import { LoadableComponent } from '@common';
+// @ts-ignore
+import { lazy } from 'react';
 
-/* tslint:disable space-in-parens */
-export const Home = Loadable({
-  loader: () => import(/* webpackChunkName: "Home" */ './Home'),
-  loading: LoadableComponent,
-});
+export { FullscreenLoader } from './FullscreenLoader';
 
-export const Editor = Loadable({
-  loader: () => import(/* webpackChunkName: "Editor" */ './Editor'),
-  loading: LoadableComponent,
-});
-
-export const OutputEditor = Loadable({
-  loader: () => import(/* webpackChunkName: "OutputEditor" */ './OutputEditor'),
-  loading: LoadableComponent,
-});
+export const Home = lazy(() => import(
+  /* webpackChunkName: "Home" */ './Home'
+));
+export const Editor = lazy(() => import(
+  /* webpackChunkName: "Editor" */ './Editor'
+));
+export const OutputEditor = lazy(() => import(
+  /* webpackChunkName: "OutputEditor" */ './OutputEditor'
+));

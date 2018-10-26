@@ -1,4 +1,5 @@
-import * as React from 'react';
+// @ts-ignore
+import React, { Component, lazy } from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
@@ -7,7 +8,7 @@ import { SettingsContainer } from './styled';
 import SettingsModal from './SettingsModal';
 
 @observer
-class SettingsButton extends React.Component {
+class SettingsButton extends Component {
   @observable open = false;
 
   @action

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@styled-components';
 import MaterialModal from '@material-ui/core/Modal';
 
 export const Modal = styled(MaterialModal)`

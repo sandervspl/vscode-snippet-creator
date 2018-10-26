@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Button from '@material-ui/core/Button';
@@ -10,7 +10,7 @@ import { TopContainer, OutputMonacoEditor } from './components/styled';
 
 @inject(Stores.outputStore)
 @observer
-class OutputEditor extends React.Component<OutputProps> {
+class OutputEditor extends Component<OutputProps> {
   outputContainer: HTMLElement;
   outputEditor: monaco.editor.IStandaloneCodeEditor;
 

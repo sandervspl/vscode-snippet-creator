@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
 import Tab from '@material-ui/core/Tab';
@@ -10,7 +10,7 @@ import NewSnippetModal from './NewSnippetModal';
 
 @inject(Stores.editorTabsStore)
 @observer
-class TabsContainer extends React.Component<TabsProps> {
+class TabsContainer extends Component<TabsProps> {
   @observable open = true;
 
   @action
@@ -58,11 +58,7 @@ class TabsContainer extends React.Component<TabsProps> {
               : { label: tab.name };
 
             return (
-              <Tab
-                key={tab.id}
-                {...tabProps}
-                // component={CustomTab(tab, editorTabsStore, tabProps)}
-              />
+              <Tab key={tab.id} {...tabProps} />
             );
           })}
         </StyledTabs>

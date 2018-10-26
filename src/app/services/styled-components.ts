@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as styledComponents from '../../../node_modules/styled-components';
+import * as styledComponents from 'styled-components';
 
 const {
   ServerStyleSheet,

@@ -6,7 +6,7 @@ export interface Colors {
   primaryBg: string;
   primaryBgLight: string;
   primaryText: string;
-  border: string;
+  border: string & Border;
 }
 
 export interface Fonts {
@@ -21,4 +21,8 @@ export interface Theme {
 export interface BaseStyled {
   theme?: i.Theme;
   className?: string;
+}
+
+export interface Border {
+  focus: string;
 }

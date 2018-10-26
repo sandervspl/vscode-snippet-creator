@@ -1,7 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from '@styled-components';
 import AppBar from '@material-ui/core/AppBar';
 import { ModalInner } from 'common/Modal';
-import { P } from 'common/Typography';
 
 export const Container = styled.div`
   display: flex;
@@ -71,7 +70,7 @@ export const Buttons = styled.div`
   }
 `;
 
-export const Field = styled.div`
+export const Field = styled.div<FieldProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -106,3 +105,6 @@ export const Field = styled.div`
     }
   }
 `;
+interface FieldProps {
+  small: boolean;
+}

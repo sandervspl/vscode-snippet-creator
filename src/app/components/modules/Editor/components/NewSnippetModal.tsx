@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component, FormEvent, createRef } from 'react';
 import { observable, action } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
@@ -11,10 +11,10 @@ import { Form, NewSnippetInnerModal } from './styled';
 
 @inject(Stores.editorTabsStore)
 @observer
-class NewSnippetModal extends React.Component<Props> {
+class NewSnippetModal extends Component<Props> {
   @observable name = '';
   @observable prefix = '';
-  nameElement = React.createRef<HTMLInputElement>();
+  nameElement = createRef<HTMLInputElement>();
 
   componentDidMount() {
     if (this.nameElement.current) {
@@ -23,7 +23,7 @@ class NewSnippetModal extends React.Component<Props> {
   }
 
   @action
-  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+  handleChange = (event: FormEvent<HTMLInputElement>) => {
     this[event.currentTarget.name] = event.currentTarget.value;
   }
 

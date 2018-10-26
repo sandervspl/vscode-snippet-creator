@@ -1,12 +1,12 @@
-import * as path from 'path';
-import * as webpackMerge from 'webpack-merge';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
-import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+const path = require('path');
+const webpackMerge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+import * as webpack from 'webpack';
+import config from './config';
 
-const srcPath = (p: string) => path.resolve(__dirname, '../src/', p);
-
-const baseConfig: any = {
+const baseConfig: webpack.Configuration = {
   output: {
     filename: '[name].[hash].js',
     chunkFilename: '[name].js',
@@ -34,12 +34,7 @@ const baseConfig: any = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: [{
-          loader: 'ts-loader',
-          options: {
-            transpileOnly: true,
-          },
-        }],
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -101,7 +96,7 @@ const baseConfig: any = {
       features: ['coreCommands'],
     }),
     new HtmlWebpackPlugin({
-      title: 'VSCode Snippet Creator',
+      title: config.appName,
       filename: 'index.html',
       inject: true,
       template: path.join(__dirname, '../src/index.html'),

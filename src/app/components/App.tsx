@@ -1,21 +1,24 @@
-import * as React from 'react';
+// @ts-ignore
+import React, { Component, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Head } from '@common';
-import { Home } from './modules';
+import { Home, FullscreenLoader } from '@modules';
 
 @observer
-class App extends React.Component<AppProps> {
+class App extends Component<AppProps> {
   render() {
     return (
       <>
         <Head />
-        <main>
-          <Switch>
-            <Route exact path="/" component={Home} />
-          </Switch>
-        </main>
+        <Suspense fallback={FullscreenLoader}>
+          <main>
+            <Switch>
+              <Route exact path="/" component={Home} />
+            </Switch>
+          </main>
+        </Suspense>
       </>
     );
   }
@@ -23,5 +26,4 @@ class App extends React.Component<AppProps> {
 
 export interface AppProps extends RouteComponentProps {}
 
-// withRouter is necessary for App to re-render on route change (MobX's fault)
 export default withRouter(App);

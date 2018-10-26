@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component } from 'react';
 import { reaction } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
@@ -10,7 +10,7 @@ import { Tabs } from './components';
 
 @inject(Stores.editorTabsStore, Stores.editorStore)
 @observer
-export class Editor extends React.Component<EditorProps> {
+export class Editor extends Component<EditorProps> {
   editorContainer: HTMLElement;
   editor: monaco.editor.IStandaloneCodeEditor;
 

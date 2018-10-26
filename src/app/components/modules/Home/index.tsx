@@ -1,5 +1,5 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,9 +10,9 @@ import SettingsButton from './components/SettingsButton';
 
 @inject(Stores.editorTabsStore)
 @observer
-class Home extends React.Component<HomeProps> { 
+class Home extends Component<HomeProps> { 
   render() {
-    const { tabId } = this.props.editorTabsStore;
+    const { tabId } = this.props.editorTabsStore!;
     
     return (
       <Container>

@@ -1,17 +1,17 @@
 import * as i from '@types';
-import * as React from 'react';
+import React, { Component, ChangeEvent } from 'react';
 import { inject, observer } from 'mobx-react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Stores from 'app/stores';
-import { H2, P } from 'common/Typography';
 import { Modal } from 'common/Modal';
+import { H2, P } from 'common/Typography';
 import { Input, Select } from 'common/Form';
 import { Field, FormInner, SettingsInnerModal, Buttons } from './styled';
 
 @inject(Stores.editorStore)
 @observer
-class SettingsModal extends React.Component<Props> {
+class SettingsModal extends Component<Props> {
   private originalSettings: i.EditorOptions;
   private newSettings: i.EditorOptions;
 
@@ -22,11 +22,11 @@ class SettingsModal extends React.Component<Props> {
     }
   }
 
-  handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  handleLanguageChange = (event: ChangeEvent<HTMLSelectElement>) => {
     this.newSettings.language = event.target.value;
   }
   
-  handleIndentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  handleIndentChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.newSettings.indent = Number(event.target.value);
   }
 

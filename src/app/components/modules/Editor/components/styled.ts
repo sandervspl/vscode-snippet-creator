@@ -1,5 +1,5 @@
 import * as i from '@types';
-import styled from 'styled-components';
+import styled from '@styled-components';
 import Tabs from '@material-ui/core/Tabs';
 import { ModalInner } from 'common/Modal';
 
@@ -31,7 +31,7 @@ export const CloseButton = styled.div`
   }
 `;
 
-export const StyledTabs = styled(Tabs)`
+export const StyledTabs = styled(Tabs)<StyledTabsProps>`
   background-color: ${props => props.theme.color.primaryBg};
   transition: background-color 1s ease-in-out;
 
@@ -67,18 +67,7 @@ export const StyledTabs = styled(Tabs)`
     }
   }
 `;
-
-export const TabContainer = styled.div<TabContainerProps>`
-  position: relative;
-  width: ${props => `calc(100% / ${props.tabsAmount})`};
-  min-width: 75px;
-  max-width: 150px;
-
-  &:last-child {
-    width: 75px;
-  }
-`;
-interface TabContainerProps extends i.BaseStyled {
+interface StyledTabsProps extends i.BaseStyled {
   tabsAmount: number;
 }
 
