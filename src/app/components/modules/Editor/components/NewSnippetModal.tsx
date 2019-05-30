@@ -59,7 +59,7 @@ class NewSnippetModal extends Component<Props> {
             />
             <Input
               name="prefix"
-              label="Prefix"
+              label="Shortcut text"
               value={this.prefix}
               onChange={this.handleChange}
               margin="dense"
