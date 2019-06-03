@@ -1,10 +1,11 @@
-const path = require('path');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+import path from 'path';
 import * as webpack from 'webpack';
+import * as devServer from 'webpack-dev-server';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { merge } from './base';
 import globals from './globals';
 
-const devConfig: webpack.Configuration = merge({
+const devConfig: devServer.Configuration = merge({
   name: 'client',
   mode: 'development',
   entry: {
@@ -19,6 +20,13 @@ const devConfig: webpack.Configuration = merge({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin(globals('client')),
   ],
+  devServer: {
+    host: '0.0.0.0',
+    port: Number(process.env.PORT) || 3000,
+    hot: true,
+    stats: 'minimal',
+    historyApiFallback: true,
+  },
 });
 
 module.exports = devConfig;

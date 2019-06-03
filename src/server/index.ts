@@ -1,5 +1,5 @@
-import * as express from 'express';
 import * as path from 'path';
+import express from 'express';
 import compress from 'compression';
 
 const port = process.env.PORT || 3000;

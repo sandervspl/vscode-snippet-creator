@@ -3,9 +3,14 @@ import * as i from '@types';
 export default class LocalStorageHelper<T> {
   constructor(private key: i.LOCAL_STORAGE_KEY) {}
 
-  get = () => {
-    const data: T = JSON.parse(localStorage.getItem(this.key));
-    return data || {};
+  get = (): T | null => {
+    const localStorageData = localStorage.getItem(this.key);
+
+    if (localStorageData) {
+      return JSON.parse(localStorageData);
+    }
+
+    return null;
   }
   
   set(data: T) {

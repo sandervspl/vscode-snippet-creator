@@ -1,4 +1,3 @@
-export { History } from 'history';
 export { RouterStore } from 'mobx-react-router';
 import { RouteComponentProps as IRouteComponentProps } from 'react-router-dom';
 

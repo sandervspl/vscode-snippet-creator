@@ -11,8 +11,8 @@ import { Tabs } from './components';
 @inject(Stores.editorTabsStore, Stores.editorStore)
 @observer
 export class Editor extends Component<EditorProps> {
-  editorContainer: HTMLElement;
   editor: monaco.editor.IStandaloneCodeEditor;
+  editorRef = React.createRef<HTMLDivElement>();
 
   // Update editor on settings changes
   updateEditorOptions = reaction(
@@ -64,7 +64,7 @@ export class Editor extends Component<EditorProps> {
       editorStore!.options = options;
     }
 
-    this.editor = monaco.editor.create(this.editorContainer, {
+    this.editor = monaco.editor.create(this.editorRef.current!, {
       automaticLayout: true,
       language: options.language,
       minimap: {
@@ -86,10 +86,6 @@ export class Editor extends Component<EditorProps> {
       this.forceUpdate();
     });
   }
-
-  assignRef = (c: HTMLElement) => {
-    this.editorContainer = c;
-  }
   
   render() {
     const { editorTabsStore } = this.props;
@@ -97,7 +93,7 @@ export class Editor extends Component<EditorProps> {
     return (
       <EditorContainer>
         <Tabs tabId={editorTabsStore!.tabId} />
-        <MonacoEditor ref={this.assignRef} />
+        <MonacoEditor ref={this.editorRef} />
       </EditorContainer>
     );
   }

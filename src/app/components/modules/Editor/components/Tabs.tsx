@@ -24,7 +24,7 @@ class TabsContainer extends Component<TabsProps> {
   }
   
   @action
-  handleTabChange = (event, value) => {
+  handleTabChange = (event: React.ChangeEvent, value: number) => {
     const { editorTabsStore } = this.props;
     const { tabs } = editorTabsStore!;
     
@@ -48,7 +48,7 @@ class TabsContainer extends Component<TabsProps> {
         <StyledTabs
           value={tabId}
           onChange={this.handleTabChange}
-          scrollable
+          variant="scrollable"
           scrollButtons="off"
           tabsAmount={editorTabsStore!.tabs.length}
         >

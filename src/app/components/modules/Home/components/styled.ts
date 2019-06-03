@@ -20,6 +20,10 @@ export const StyledAppBar = styled(AppBar)`
   > div {
     justify-content: space-between;
   }
+
+  h2 {
+    font-size: 20px;
+  }
 `;
 
 export const EditorsContainer = styled.div`
@@ -106,5 +110,5 @@ export const Field = styled.div<FieldProps>`
   }
 `;
 interface FieldProps {
-  small: boolean;
+  small?: boolean;
 }

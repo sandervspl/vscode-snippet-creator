@@ -1,6 +1,6 @@
 import * as i from '@types';
 import { observable, computed, action } from 'mobx';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 class EditorTabsStore implements i.EditorTabsStore {
   // tabId is is NOT related to Snippet.id
@@ -14,15 +14,22 @@ class EditorTabsStore implements i.EditorTabsStore {
 
   @action
   public addTab = (name: string, prefix: string) => {
-    this.tabs = [
-      ...(this.tabs.length > 1 ? this.tabs.filter(tab => tab.id !== 0) : []),
-      {
-        id: this.tabs.length,
-        name,
-        prefix,
-      },
-      this.tabs.find(tab => tab.id === 0),
+    const firstTab = this.tabs.find(tab => tab.id === 0)!;
+    const notFirstTabs: i.Snippet[] = this.tabs.length > 1 ? this.tabs.filter(tab => tab.id !== 0) : [];
+
+    const newTab = {
+      id: this.tabs.length,
+      name,
+      prefix,
+    };
+
+    const newTabs = [
+      ...notFirstTabs,
+      newTab,
+      firstTab,
     ];
+
+    this.tabs = newTabs;
 
     this.tabId = this.tabs.length - 2;
   }

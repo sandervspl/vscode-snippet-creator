@@ -14,16 +14,9 @@ import { Form, NewSnippetInnerModal } from './styled';
 class NewSnippetModal extends Component<Props> {
   @observable name = '';
   @observable prefix = '';
-  nameElement = createRef<HTMLInputElement>();
-
-  componentDidMount() {
-    if (this.nameElement.current) {
-      this.nameElement.current.focus();
-    }
-  }
 
   @action
-  handleChange = (event: FormEvent<HTMLInputElement>) => {
+  handleChange = (event) => {
     this[event.currentTarget.name] = event.currentTarget.value;
   }
 
@@ -55,7 +48,6 @@ class NewSnippetModal extends Component<Props> {
               onChange={this.handleChange}
               margin="dense"
               variant="outlined"
-              ref={this.nameElement}
             />
             <Input
               name="prefix"

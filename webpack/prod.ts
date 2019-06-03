@@ -1,8 +1,8 @@
-const path = require('path');
-const nodeExternals = require('webpack-node-externals');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const workbox = require('workbox-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
+import path from 'path';
+import nodeExternals from 'webpack-node-externals';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import workbox from 'workbox-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest';
 import * as webpack from 'webpack';
 import globals from './globals';
 import { merge } from './base';

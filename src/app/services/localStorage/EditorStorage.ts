@@ -7,15 +7,18 @@ export default class EditorStorage extends LocalStorageHelper<i.EditorLocalStora
   }
 
   public setOptions(data: Partial<i.EditorOptions>) {
-    const curData = this.get() as i.EditorLocalStorage;
-    const newData = {
-      ...curData,
-      options: {
-        ...curData.options,
-        ...data,
-      },
-    };
+    const curData = this.get();
 
-    super.set(newData);
+    if (curData) {
+      const newData = {
+        ...curData,
+        options: {
+          ...curData.options,
+          ...data,
+        },
+      };
+
+      super.set(newData);
+    }
   }
 }

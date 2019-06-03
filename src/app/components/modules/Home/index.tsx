@@ -18,8 +18,8 @@ class Home extends Component<HomeProps> {
       <Container>
         <StyledAppBar position="static">
           <Toolbar>
-            <Typography variant="title">
-              Snippet Creator
+            <Typography variant="h2">
+              SNIPPET CREATOR
             </Typography>
             <SettingsButton />
           </Toolbar>

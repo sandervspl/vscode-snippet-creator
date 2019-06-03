@@ -1,9 +1,9 @@
-const path = require('path');
-const webpackMerge = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+import * as path from 'path';
 import * as webpack from 'webpack';
+import webpackMerge from 'webpack-merge';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 import config from './config';
 
 const baseConfig: webpack.Configuration = {
@@ -17,8 +17,8 @@ const baseConfig: webpack.Configuration = {
     splitChunks: {
       cacheGroups: {
         commons: {
-          name: 'vendors',
-          test: /node_modules/,
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
           chunks: 'all',
         },
       },
@@ -118,4 +118,4 @@ const baseConfig: webpack.Configuration = {
 
 export default baseConfig;
 
-export const merge = (...config) => webpackMerge(baseConfig, ...config);
+export const merge = (...config: webpack.Configuration[]) => webpackMerge(baseConfig, ...config);

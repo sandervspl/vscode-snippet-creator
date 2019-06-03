@@ -9,6 +9,8 @@
     "strictNullChecks": true,
     "pretty": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "module": "commonjs",
     "target": "esnext",
     "jsx": "react",

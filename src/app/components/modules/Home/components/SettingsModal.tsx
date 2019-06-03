@@ -47,7 +47,7 @@ class SettingsModal extends Component<Props> {
     return (
       <Modal open={open} onClose={onClose}>
         <SettingsInnerModal>
-          <H2>Preferences</H2>
+          <H2>Settings</H2>
 
           <FormInner>
             <Field small>

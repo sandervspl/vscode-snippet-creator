@@ -1,6 +1,7 @@
 dist/
 node_modules/
 design/
+.vscode/
 src/config/secret.ts
 
 # OS generated files #

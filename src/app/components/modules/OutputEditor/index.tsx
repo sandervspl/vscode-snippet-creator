@@ -11,11 +11,11 @@ import { TopContainer, OutputMonacoEditor } from './components/styled';
 @inject(Stores.outputStore)
 @observer
 class OutputEditor extends Component<OutputProps> {
-  outputContainer: HTMLElement;
   outputEditor: monaco.editor.IStandaloneCodeEditor;
+  editorRef = React.createRef<HTMLDivElement>();
 
   componentDidMount() {
-    this.outputEditor = monaco.editor.create(this.outputContainer, {
+    this.outputEditor = monaco.editor.create(this.editorRef.current!, {
       automaticLayout: true,
       language: 'json',
       readOnly: true,
@@ -32,15 +32,11 @@ class OutputEditor extends Component<OutputProps> {
   }
 
   setEditorBody = () => {
-    this.outputEditor.setValue(`{\n${this.props.outputStore.body}\n}`);
-  }
-  
-  assignRef2 = (c: HTMLElement) => {
-    this.outputContainer = c;
+    this.outputEditor.setValue(`{\n${this.props.outputStore!.body}\n}`);
   }
 
   render() {
-    const { body } = this.props.outputStore;
+    const { body } = this.props.outputStore!;
 
     return (
       <EditorContainer>
@@ -51,7 +47,7 @@ class OutputEditor extends Component<OutputProps> {
             </Button>
           </CopyToClipboard>
         </TopContainer>
-        <OutputMonacoEditor ref={this.assignRef2} />
+        <OutputMonacoEditor ref={this.editorRef} />
       </EditorContainer>
     );
   }

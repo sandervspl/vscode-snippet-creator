@@ -26,7 +26,7 @@ class SettingsButton extends Component {
       <SettingsContainer>
         <Button onClick={this.handleOpen}>
           <SettingsIcon />
-          Preferences
+          Settings
         </Button>
 
         <SettingsModal open={this.open} onClose={this.handleClose} />

@@ -1,6 +1,6 @@
 export class Config {
-  appName = 'vscode snippet creator';
-  shortName = 'snippets';
+  public readonly appName = 'vscode snippet creator';
+  public readonly shortName = 'snippets';
 }
 
 const cfg = new Config();
