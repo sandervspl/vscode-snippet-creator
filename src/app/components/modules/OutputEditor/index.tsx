@@ -43,7 +43,7 @@ class OutputEditor extends Component<OutputProps> {
         <TopContainer style={{ width: '100%', minHeight: '48px' }}>
           <CopyToClipboard text={body}>
             <Button variant="contained">
-              Copy Snippet
+              Copy to clipboard
             </Button>
           </CopyToClipboard>
         </TopContainer>

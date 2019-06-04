@@ -1,6 +1,6 @@
 {
   "apps":[{
-    "name": "vscode-snippet-creator",
+    "name": "snippet-creator",
     "script": "./dist/server.js",
     "cwd": "./",
     "instances": 0,
