@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Button from '@material-ui/core/Button';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import Stores from 'app/stores';
 import { EditorContainer } from 'common/Editor';
 import { TopContainer, OutputMonacoEditor } from './components/styled';
@@ -40,9 +42,9 @@ class OutputEditor extends Component<OutputProps> {
 
     return (
       <EditorContainer>
-        <TopContainer style={{ width: '100%', minHeight: '48px' }}>
+        <TopContainer>
           <CopyToClipboard text={body}>
-            <Button variant="contained">
+            <Button variant="text" color="inherit">
               Copy to clipboard
             </Button>
           </CopyToClipboard>

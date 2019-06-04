@@ -53,7 +53,7 @@ export const SettingsInnerModal = styled(ModalInner)`
 
   button {
     &:first-of-type {
-      margin-right: 20px;
+      margin-right: 10px;
       color: ${props => props.theme.color.primaryText};
     }
   }

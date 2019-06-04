@@ -20,6 +20,7 @@ export interface EditorBodies {
 }
 
 export interface EditorOptions {
-  language: string;
   indent: number;
+  language: 'javascript' | 'typescript';
+  editor: 'VS Code' | 'Atom';
 }

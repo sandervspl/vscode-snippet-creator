@@ -16,10 +16,7 @@ export class Editor extends Component<EditorProps> {
 
   // Update editor on settings changes
   updateEditorOptions = reaction(
-    (): i.EditorOptions => ({
-      indent: this.props.editorStore!.options.indent,
-      language: this.props.editorStore!.options.language,
-    }),
+    (): i.EditorOptions => this.props.editorStore!.options,
     (options) => {
       // Set indent
       this.editor.getModel().updateOptions({
@@ -48,20 +45,15 @@ export class Editor extends Component<EditorProps> {
 
   componentDidMount() {
     const { editorStore } = this.props;
-    const editorStorage = localStorageHelper.editor.get() as i.EditorLocalStorage;
-    let { options } = editorStorage;
+    const editorStorage = localStorageHelper.editor.get();
+    const options = { ...editorStore!.options };
 
     // Save default settings in localstorage
-    if (!options) {
-      options = {
-        language: editorStore!.options.language,
-        indent: editorStore!.options.indent,
-      };
-
+    if (!editorStorage || !editorStorage.options) {
       localStorageHelper.editor.setOptions(options);
     } else {
       // Save localstorage in state
-      editorStore!.options = options;
+      editorStore!.options = editorStorage.options;
     }
 
     this.editor = monaco.editor.create(this.editorRef.current!, {

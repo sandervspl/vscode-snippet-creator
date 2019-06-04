@@ -3,17 +3,21 @@ import { observable, computed, action, reaction } from 'mobx';
 import outputStore from 'stores/Output';
 import { localStorageHelper } from '@services';
 
-class EditorStore implements i.EditorStore {
-  @observable bodies: i.EditorBodies = {};
-  @observable options: i.EditorOptions = {
-    language: 'javascript',
+export class EditorStore implements i.EditorStore {
+  public static readonly INIT_OPTIONS: i.EditorOptions = {
     indent: 2,
+    language: 'typescript',
+    editor: 'VS Code',
   };
+
+  @observable bodies: i.EditorBodies = {};
+  @observable options: i.EditorOptions = EditorStore.INIT_OPTIONS;
 
   private updateStorage = reaction(
     (): i.EditorOptions => ({
-      language: this.options.language,
       indent: this.options.indent,
+      language: this.options.language,
+      editor: this.options.editor,
     }),
     (options) => {
       localStorageHelper.editor.setOptions(options);
