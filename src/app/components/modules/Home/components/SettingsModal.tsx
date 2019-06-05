@@ -30,9 +30,11 @@ class SettingsModal extends Component<Props> {
   }
 
   init = () => {
-    this.originalSettings = localStorageHelper.editor.get()
-    ? localStorageHelper.editor.get()!.options
-    : this.props.editorStore!.options;
+    const storage = localStorageHelper.editor.get();
+
+    this.originalSettings = storage
+      ? storage.options
+      : this.props.editorStore!.options;
 
     this.newSettings ={ ...this.originalSettings };
   }

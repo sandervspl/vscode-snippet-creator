@@ -92,7 +92,7 @@ const baseConfig: webpack.Configuration = {
   },
   plugins: [
     new MonacoWebpackPlugin({
-      languages: ['json', 'javascript', 'typescript'],
+      languages: ['cson', 'json', 'javascript', 'typescript'],
       features: ['coreCommands'],
     }),
     new HtmlWebpackPlugin({

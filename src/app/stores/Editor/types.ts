@@ -5,6 +5,8 @@ export interface EditorStore {
   options: i.EditorOptions;
   getBody: (id: number) => string;
   setBody: (id: number, value: string) => void;
+  isAtomFormatting: boolean;
+  isVSCodeFormatting: boolean;
 }
 
 export interface SnippetOutput {

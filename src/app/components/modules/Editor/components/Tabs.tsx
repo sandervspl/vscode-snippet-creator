@@ -35,11 +35,6 @@ class TabsContainer extends Component<TabsProps> {
     }
   }
 
-  @action
-  handleRemove = () => {
-    // console.log(1);
-  }
-
   render() {
     const { tabId, editorTabsStore } = this.props;
 
