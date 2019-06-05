@@ -31,3 +31,8 @@ export const OutputMonacoEditor = styled(MonacoEditor)`
     }
   }
 `;
+
+export const EditorIndicator = styled.span`
+  color: ${props => props.theme.color.gray.light};
+  font-family: ${props => props.theme.font.primary};
+`;

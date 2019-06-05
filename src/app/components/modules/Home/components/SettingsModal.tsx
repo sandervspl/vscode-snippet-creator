@@ -5,11 +5,11 @@ import { inject, observer } from 'mobx-react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import Stores from 'app/stores';
+import { localStorageHelper } from 'app/services';
 import { Modal } from 'common/Modal';
 import { H2, P } from 'common/Typography';
 import { Input, Select } from 'common/Form';
 import { Field, FormInner, SettingsInnerModal, Buttons } from './styled';
-import { localStorageHelper } from 'app/services';
 
 @inject(Stores.editorStore)
 @observer
@@ -71,7 +71,10 @@ class SettingsModal extends Component<Props> {
   }
 
   render() {
-    const { open, onClose, editorStore } = this.props;
+    const { open, onClose } = this.props;
+
+    const editorOptions: i.EditorOptions['editor'][] = ['VS Code', 'Atom'];
+    const langOptions: i.EditorOptions['language'][] = ['javascript', 'typescript'];
 
     return (
       <Modal open={open} onClose={onClose}>
@@ -81,20 +84,12 @@ class SettingsModal extends Component<Props> {
           <FormInner>
             <Field small>
               <P>Indent</P>
-              <Input
-                // defaultValue={editorStore!.options.indent}
-                value={this.newSettings.indent}
-                onChange={this.handleIndentChange}
-              />
+              <Input value={this.newSettings.indent} onChange={this.handleIndentChange} />
             </Field>
             <Field>
               <P>Language</P>
-              <Select
-                // value={editorStore!.options.language}
-                value={this.newSettings.language}
-                onChange={this.handleLanguageChange}
-              >
-                {['javascript', 'typescript'].map(option => (
+              <Select value={this.newSettings.language} onChange={this.handleLanguageChange}>
+                {langOptions.map(option => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -103,12 +98,8 @@ class SettingsModal extends Component<Props> {
             </Field>
             <Field>
               <P>Editor</P>
-              <Select
-                // value={editorStore!.options.editor}
-                value={this.newSettings.editor}
-                onChange={this.handleEditorChange}
-              >
-                {['VS Code', 'Atom'].map(option => (
+              <Select value={this.newSettings.editor} onChange={this.handleEditorChange}>
+                {editorOptions.map(option => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

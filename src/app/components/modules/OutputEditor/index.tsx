@@ -8,7 +8,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import Stores from 'app/stores';
 import { localStorageHelper } from 'app/services';
 import { EditorContainer } from 'common/Editor';
-import { TopContainer, OutputMonacoEditor } from './components/styled';
+import { TopContainer, OutputMonacoEditor, EditorIndicator } from './components/styled';
 
 @inject(Stores.outputStore, Stores.editorStore)
 @observer
@@ -73,6 +73,7 @@ class OutputEditor extends Component<OutputProps> {
 
   render() {
     const { body } = this.props.outputStore!;
+    const { editor } = this.props.editorStore!.options;
 
     return (
       <EditorContainer>
@@ -82,6 +83,8 @@ class OutputEditor extends Component<OutputProps> {
               Copy to clipboard
             </Button>
           </CopyToClipboard>
+
+          <EditorIndicator>{editor}</EditorIndicator>
         </TopContainer>
         <OutputMonacoEditor ref={this.editorRef} />
       </EditorContainer>

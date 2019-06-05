@@ -1,5 +1,5 @@
-import * as i from '@types';
 import * as styledComponents from 'styled-components';
+import { theme } from 'app/styles';
 
 const {
   ServerStyleSheet,
@@ -12,7 +12,7 @@ const {
   createGlobalStyle,
   keyframes,
   ThemeProvider,
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<i.Theme>;
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<typeof theme>;
 
 export { css, createGlobalStyle, keyframes, ThemeProvider, ServerStyleSheet, StyleSheetManager };
 export default styled;

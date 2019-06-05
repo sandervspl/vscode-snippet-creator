@@ -1,9 +1,12 @@
 import * as i from '@types';
 
-const theme: i.Theme = {
+const theme = {
   color: {
     black: '#1e1e1e',
     white: '#ffffff',
+    gray: Object.assign('gray', {
+      light: '#404040',
+    }),
     primaryBg: '#1e1e1e',
     primaryBgLight: '#2d2d2d',
     primaryText: '#e1e1e1',
