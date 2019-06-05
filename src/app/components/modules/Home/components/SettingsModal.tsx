@@ -10,6 +10,7 @@ import { Modal } from 'common/Modal';
 import { H2, P } from 'common/Typography';
 import { Input, Select } from 'common/Form';
 import { Field, FormInner, SettingsInnerModal, Buttons } from './styled';
+import { withSnackbar, WithSnackbarProps } from 'notistack';
 
 @inject(Stores.editorStore)
 @observer
@@ -67,6 +68,8 @@ class SettingsModal extends Component<Props> {
       options: { ...this.newSettings },
     });
 
+    this.props.enqueueSnackbar('Saved settings!', { variant: 'success' });
+
     this.props.onClose();
   }
 
@@ -83,7 +86,7 @@ class SettingsModal extends Component<Props> {
 
           <FormInner>
             <Field small>
-              <P>Indent</P>
+              <P>Tab Size</P>
               <Input value={this.newSettings.indent} onChange={this.handleIndentChange} />
             </Field>
             <Field>
@@ -126,10 +129,10 @@ class SettingsModal extends Component<Props> {
   }
 }
 
-interface Props {
+type Props = WithSnackbarProps & {
   open: boolean;
   onClose: () => void;
   editorStore?: i.EditorStore;
 }
 
-export default SettingsModal;
+export default withSnackbar(SettingsModal);

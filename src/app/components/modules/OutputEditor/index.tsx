@@ -9,10 +9,11 @@ import Stores from 'app/stores';
 import { localStorageHelper } from 'app/services';
 import { EditorContainer } from 'common/Editor';
 import { TopContainer, OutputMonacoEditor, EditorIndicator } from './components/styled';
+import { WithSnackbarProps, withSnackbar } from 'notistack';
 
 @inject(Stores.outputStore, Stores.editorStore)
 @observer
-class OutputEditor extends Component<OutputProps> {
+class OutputEditor extends Component<Props> {
   outputEditor: monaco.editor.IStandaloneCodeEditor;
   editorRef = React.createRef<HTMLDivElement>();
 
@@ -40,7 +41,7 @@ class OutputEditor extends Component<OutputProps> {
     this.setEditorBody();
   }
 
-  componentDidUpdate(prevProps: OutputProps) {
+  componentDidUpdate(prevProps: Props) {
     this.setEditorBody();
   }
 
@@ -71,6 +72,10 @@ class OutputEditor extends Component<OutputProps> {
     }
   }
 
+  onCopy = () => {
+    this.props.enqueueSnackbar('Snippet copied to clipboard!', { variant: 'success' });
+  }
+
   render() {
     const { body } = this.props.outputStore!;
     const { editor } = this.props.editorStore!.options;
@@ -78,7 +83,7 @@ class OutputEditor extends Component<OutputProps> {
     return (
       <EditorContainer>
         <TopContainer>
-          <CopyToClipboard text={body}>
+          <CopyToClipboard text={body} onCopy={this.onCopy}>
             <Button variant="text" color="inherit">
               Copy to clipboard
             </Button>
@@ -92,9 +97,9 @@ class OutputEditor extends Component<OutputProps> {
   }
 }
 
-interface OutputProps {
+type Props = WithSnackbarProps & {
   outputStore?: i.OutputStore;
   editorStore?: i.EditorStore;
 }
 
-export default OutputEditor;
+export default withSnackbar(OutputEditor);

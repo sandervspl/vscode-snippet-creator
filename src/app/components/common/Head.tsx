@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import * as GA from 'services/scripts/GA';
+// import Helmet from 'react-helmet';
+// import * as GA from 'services/scripts/GA';
 
 export class Head extends Component {
   render() {
@@ -8,8 +8,8 @@ export class Head extends Component {
 
     return (
       <>
-        <Helmet script={[{ src: GA.src }]} />
-        <Helmet script={[{ innerHTML: GA.code }]} />
+        {/* <Helmet script={[{ src: GA.src }]} />
+        <Helmet script={[{ innerHTML: GA.code }]} /> */}
       </>
     );
   }

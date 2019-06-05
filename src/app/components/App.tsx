@@ -3,6 +3,7 @@ import React, { Component, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { withRouter, RouteComponentProps } from 'react-router';
+import { SnackbarProvider } from 'notistack';
 import { localStorageHelper } from 'app/services';
 import { Head } from '@common';
 import { Home, FullscreenLoader } from '@modules';
@@ -23,7 +24,7 @@ class App extends Component<AppProps> {
 
   render() {
     return (
-      <>
+      <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
         <Head />
         <Suspense fallback={FullscreenLoader}>
           <main>
@@ -32,11 +33,11 @@ class App extends Component<AppProps> {
             </Switch>
           </main>
         </Suspense>
-      </>
+      </SnackbarProvider>
     );
   }
 }
 
-export interface AppProps extends RouteComponentProps {}
+export type AppProps = RouteComponentProps;
 
 export default withRouter(App);
