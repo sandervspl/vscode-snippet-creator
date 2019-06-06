@@ -1,4 +1,3 @@
-// @ts-ignore
 import { lazy } from 'react';
 
 export { FullscreenLoader } from './FullscreenLoader';

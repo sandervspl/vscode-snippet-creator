@@ -1,5 +1,4 @@
-// @ts-ignore
-import React, { Component, lazy } from 'react';
+import React, { Component } from 'react';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';

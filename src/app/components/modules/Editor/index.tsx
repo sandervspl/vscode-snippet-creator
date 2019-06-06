@@ -45,16 +45,7 @@ export class Editor extends Component<EditorProps> {
 
   componentDidMount() {
     const { editorStore } = this.props;
-    const editorStorage = localStorageHelper.editor.get();
-    const options = { ...editorStore!.options };
-
-    // Save default settings in localstorage
-    if (!editorStorage || !editorStorage.options) {
-      localStorageHelper.editor.setOptions(options);
-    } else {
-      // Save localstorage in state
-      editorStore!.options = editorStorage.options;
-    }
+    const { options } = editorStore!;
 
     this.editor = monaco.editor.create(this.editorRef.current!, {
       automaticLayout: true,
@@ -68,6 +59,7 @@ export class Editor extends Component<EditorProps> {
       tabSize: options.indent,
     });
 
+    // Update store when content in the editor updates
     this.editor.onDidChangeModelContent(() => {
       const { tabId } = this.props.editorTabsStore!;
       const value = this.editor.getValue();

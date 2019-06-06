@@ -5,6 +5,4 @@ class LocalStorage implements i.LocalStorage {
   public editor = new EditorStorage();
 }
 
-const ls = new LocalStorage();
-
-export const localStorageHelper = ls;
+export const localStorageHelper = new LocalStorage();

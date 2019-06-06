@@ -13,11 +13,11 @@ export default class LocalStorageHelper<T> {
     return null;
   }
   
-  set(data: T) {
-    localStorage && localStorage.setItem(this.key, JSON.stringify(data));
+  set = (data: T) => {
+    localStorage.setItem(this.key, JSON.stringify(data));
   }
 
   clear = () => {
-    localStorage && localStorage.removeItem(this.key);
+    localStorage.removeItem(this.key);
   }
 }
