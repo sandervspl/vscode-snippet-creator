@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { reaction } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
-import { localStorageHelper } from '@services';
 import Stores from 'app/stores';
 import { EditorContainer, MonacoEditor } from 'common/Editor';
 import { Tabs } from './components';
@@ -70,10 +69,10 @@ export class Editor extends Component<EditorProps> {
       this.forceUpdate();
     });
   }
-  
+
   render() {
     const { editorTabsStore } = this.props;
-    
+
     return (
       <EditorContainer>
         <Tabs tabId={editorTabsStore!.tabId} />

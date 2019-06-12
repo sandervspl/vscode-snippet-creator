@@ -10,10 +10,10 @@ import SettingsButton from './components/SettingsButton';
 
 @inject(Stores.editorTabsStore)
 @observer
-class Home extends Component<HomeProps> { 
+class Home extends Component<HomeProps> {
   render() {
     const { tabId } = this.props.editorTabsStore!;
-    
+
     return (
       <Container>
         <StyledAppBar position="static">

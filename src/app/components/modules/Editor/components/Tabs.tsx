@@ -22,12 +22,12 @@ class TabsContainer extends Component<TabsProps> {
   onClose = () => {
     this.open = false;
   }
-  
+
   @action
   handleTabChange = (event: React.ChangeEvent, value: number) => {
     const { editorTabsStore } = this.props;
     const { tabs } = editorTabsStore!;
-    
+
     if (tabs[value] && tabs[value].id === 0) {
       this.onOpen();
     } else {

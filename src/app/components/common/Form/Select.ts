@@ -9,26 +9,26 @@ export const Select = styled(TextField).attrs({
   margin: 0 !important;
 
   > div {
-    color: ${props => props.theme.color.primaryText} !important;
+    color: ${(props) => props.theme.color.primaryText} !important;
     
     &:hover {
       fieldset {
-        border-color: ${props => props.theme.color.border.focus} !important;
+        border-color: ${(props) => props.theme.color.border.focus} !important;
       }
     }
   }
 
   fieldset {
     padding: 0 !important;
-    border-color: ${props => props.theme.color.border} !important;
+    border-color: ${(props) => props.theme.color.border} !important;
 
     & + div > svg {
-      fill: ${props => props.theme.color.primaryText} !important;
+      fill: ${(props) => props.theme.color.primaryText} !important;
     }
   }
 
   input,
   label {
-    color: ${props => props.theme.color.primaryText} !important;
+    color: ${(props) => props.theme.color.primaryText} !important;
   }
 `;

@@ -12,7 +12,7 @@ export default class LocalStorageHelper<T> {
 
     return null;
   }
-  
+
   set = (data: T) => {
     localStorage.setItem(this.key, JSON.stringify(data));
   }

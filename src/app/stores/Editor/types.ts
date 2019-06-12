@@ -14,7 +14,7 @@ export interface SnippetOutput {
     prefix: string;
     body: string[];
     description?: string;
-  }
+  };
 }
 
 export interface EditorBodies {

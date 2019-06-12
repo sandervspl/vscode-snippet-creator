@@ -41,7 +41,7 @@ class OutputEditor extends Component<Props> {
     this.setEditorBody();
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate() {
     this.setEditorBody();
   }
 

@@ -1,5 +1,3 @@
-import * as i from '@types';
-
 const theme = {
   color: {
     black: '#1e1e1e',

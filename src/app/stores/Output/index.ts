@@ -18,7 +18,7 @@ class OutputStore implements i.OutputStore {
 
     return outputStr;
   }
-  
+
   formatAtom = (snippet: i.Snippet): string => {
     const fixedBody = this.value
       .split('\n')

@@ -9,13 +9,13 @@ export const Container = styled.div`
   width: 100vw;
 
   h2 {
-    color: ${props => props.theme.color.primaryText};
+    color: ${(props) => props.theme.color.primaryText};
   }
 `;
 
 export const StyledAppBar = styled(AppBar)`
   height: 64px;
-  background-color: ${props => props.theme.color.primaryBgLight} !important;
+  background-color: ${(props) => props.theme.color.primaryBgLight} !important;
   
   > div {
     justify-content: space-between;
@@ -34,7 +34,7 @@ export const EditorsContainer = styled.div`
 
 export const SettingsContainer = styled.div`
   button {
-    color: ${props => props.theme.color.primaryText};
+    color: ${(props) => props.theme.color.primaryText};
 
     svg {
       margin-right: 5px;
@@ -54,7 +54,7 @@ export const SettingsInnerModal = styled(ModalInner)`
   button {
     &:first-of-type {
       margin-right: 10px;
-      color: ${props => props.theme.color.primaryText};
+      color: ${(props) => props.theme.color.primaryText};
     }
   }
 `;
@@ -90,7 +90,7 @@ export const Field = styled.div<FieldProps>`
   }
 
   &:not(:last-of-type) {
-    border-bottom: 1px solid ${props => props.theme.color.primaryBgLight};
+    border-bottom: 1px solid ${(props) => props.theme.color.primaryBgLight};
   }
 
   > p {
@@ -98,7 +98,7 @@ export const Field = styled.div<FieldProps>`
   }
   
   > * > div {
-    ${props => props.small && css`
+    ${(props) => props.small && css`
       width: 40px;
       height: 40px;
     `}

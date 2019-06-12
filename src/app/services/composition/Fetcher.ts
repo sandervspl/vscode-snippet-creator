@@ -1,7 +1,6 @@
 import * as i from '@types';
 import { action, computed, observable } from 'mobx';
-import * as qs from 'qs';
-// import { localStorageHelper } from '@services';
+import qs from 'qs';
 import apiConfig from 'config/api';
 
 export class Fetcher implements i.Fetcher {
@@ -46,7 +45,7 @@ export class Fetcher implements i.Fetcher {
     this.loaded = false;
     this.error = true;
 
-    // tslint:disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log(err);
   }
 
@@ -73,16 +72,10 @@ export class Fetcher implements i.Fetcher {
   patch = ({ path, body, withAuth }: i.GenerateOptions) =>
     this.request(this.generateOptions({ method: 'PATCH', path, body, withAuth }))
 
-  private request = async ({ path, options, handle401 }: i.RequestOptions): Promise<any> => {
+  private request = async ({ path, options /*, handle401 */ }: i.RequestOptions): Promise<any> => {
     return new Promise((resolve, reject) => {
       fetch(path, options)
         .then((response) => {
-          const unauthorized = response.status === 401 || response.status === 403;
-
-          // if (unauthorized && handle401) {
-          //   localStorageHelper.jwToken.clear();
-          // }
-
           // FOR DELETE CALLS WHEN BACK-END DOESN'T RETURN ANYTHING
           if (response.status === 204) return;
 

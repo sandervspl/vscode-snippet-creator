@@ -1,5 +1,5 @@
 import * as i from '@types';
-import { observable, computed, action, reaction } from 'mobx';
+import { observable, action, reaction } from 'mobx';
 import outputStore from 'stores/Output';
 import { localStorageHelper } from '@services';
 

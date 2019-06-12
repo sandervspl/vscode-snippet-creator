@@ -7,15 +7,15 @@ export const TopContainer = styled.div`
   justify-content: space-between;
   padding: 0 30px;
   min-height: 48px;
-  background-color: ${props => props.theme.color.primaryBg};
+  background-color: ${(props) => props.theme.color.primaryBg};
 
   button {
-    color: ${props => props.theme.color.primaryText};
+    color: ${(props) => props.theme.color.primaryText};
     background-color: none;
     box-shadow: none;
 
     &:hover {
-      color: ${props => props.theme.color.white};
+      color: ${(props) => props.theme.color.white};
       background-color: none;
     }
   }
@@ -33,6 +33,6 @@ export const OutputMonacoEditor = styled(MonacoEditor)`
 `;
 
 export const EditorIndicator = styled.span`
-  color: ${props => props.theme.color.gray.light};
-  font-family: ${props => props.theme.font.primary};
+  color: ${(props) => props.theme.color.gray.light};
+  font-family: ${(props) => props.theme.font.primary};
 `;

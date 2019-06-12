@@ -6,5 +6,5 @@ export const Container = styled.section`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: ${props => props.theme.color.primaryBg};
+  background-color: ${(props) => props.theme.color.primaryBg};
 `;

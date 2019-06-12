@@ -12,12 +12,12 @@ export const ModalInner = styled.div`
   flex-direction: column;
   padding: 30px;
   min-width: 300px;
-  background: ${props => props.theme.color.primaryBgLight};
+  background: ${(props) => props.theme.color.primaryBgLight};
   border-radius: 4px;
   outline: 0;
 
   > * {
-    color: ${props => props.theme.color.primaryText} !important;
+    color: ${(props) => props.theme.color.primaryText} !important;
   }
 
   h2 {

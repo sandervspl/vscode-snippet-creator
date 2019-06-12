@@ -1,7 +1,8 @@
+/* eslint-disable */
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 
- // Register service worker
+// Register service worker
 if (__PROD__) {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

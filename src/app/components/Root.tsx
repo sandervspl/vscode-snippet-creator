@@ -8,7 +8,7 @@ import App from './App';
 
 import 'app/static/favicon.ico';
 
-export default () => (
+const Root = () => (
   <>
     <GlobalStyles />
     <Provider {...storeDirectory}>
@@ -20,3 +20,5 @@ export default () => (
     </Provider>
   </>
 );
+
+export default Root;

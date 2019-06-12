@@ -18,21 +18,21 @@ export const CloseButton = styled.div`
   right: 0;
   width: 30px;
   height: 100%;
-  background-color: ${props => props.theme.color.primaryBg};
+  background-color: ${(props) => props.theme.color.primaryBg};
 
   svg {
     width: 15px;
-    fill: ${props => props.theme.color.primaryText};
+    fill: ${(props) => props.theme.color.primaryText};
     cursor: pointer;
 
     &:hover {
-      fill: ${props => props.theme.color.white}; 
+      fill: ${(props) => props.theme.color.white}; 
     }
   }
 `;
 
 export const StyledTabs = styled(Tabs)<StyledTabsProps>`
-  background-color: ${props => props.theme.color.primaryBg};
+  background-color: ${(props) => props.theme.color.primaryBg};
   transition: background-color 1s ease-in-out;
 
   *::-webkit-scrollbar {
@@ -42,11 +42,11 @@ export const StyledTabs = styled(Tabs)<StyledTabsProps>`
 
   button {
     /* width: 100%; */
-    width: ${props => `calc(100% / ${props.tabsAmount})`};
+    width: ${(props) => `calc(100% / ${props.tabsAmount})`};
     min-width: 75px;
     max-width: 150px;
     text-align: left;
-    color: ${props => props.theme.color.primaryText};
+    color: ${(props) => props.theme.color.primaryText};
     white-space: nowrap;
 
     &:last-child {
@@ -55,14 +55,14 @@ export const StyledTabs = styled(Tabs)<StyledTabsProps>`
 
     &[aria-selected="true"],
     &:hover {
-      background-color: ${props => props.theme.color.primaryBgLight};
+      background-color: ${(props) => props.theme.color.primaryBgLight};
 
       + ${CloseButton} {
         background: transparent;
       }
 
       svg {
-        fill: ${props => props.theme.color.white};
+        fill: ${(props) => props.theme.color.white};
       }
     }
   }

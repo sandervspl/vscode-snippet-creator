@@ -20,7 +20,7 @@ class SettingsModal extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    
+
     this.init();
   }
 
@@ -37,13 +37,13 @@ class SettingsModal extends Component<Props> {
       ? storage.options
       : this.props.editorStore!.options;
 
-    this.newSettings ={ ...this.originalSettings };
+    this.newSettings = { ...this.originalSettings };
   }
 
   handleLanguageChange = (event: ChangeEvent<HTMLSelectElement>) => {
     this.newSettings.language = event.target.value as i.EditorOptions['language'];
   }
-  
+
   handleIndentChange = (event: ChangeEvent<HTMLInputElement>) => {
     this.newSettings.indent = Number(event.target.value);
   }
@@ -92,7 +92,7 @@ class SettingsModal extends Component<Props> {
             <Field>
               <P>Language</P>
               <Select value={this.newSettings.language} onChange={this.handleLanguageChange}>
-                {langOptions.map(option => (
+                {langOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
@@ -102,7 +102,7 @@ class SettingsModal extends Component<Props> {
             <Field>
               <P>Editor</P>
               <Select value={this.newSettings.editor} onChange={this.handleEditorChange}>
-                {editorOptions.map(option => (
+                {editorOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>

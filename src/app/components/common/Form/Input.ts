@@ -9,29 +9,29 @@ export const Input = styled(TextField).attrs({
   margin: 0 !important;
 
   fieldset {
-    border-color: ${props => props.theme.color.border};
+    border-color: ${(props) => props.theme.color.border};
 
     &:active,
     &:focus {
-      border-color: ${props => props.theme.color.border.focus} !important;
+      border-color: ${(props) => props.theme.color.border.focus} !important;
     }
   }
 
   > div {
     &:hover {
       fieldset {
-        border-color: ${props => props.theme.color.border.focus} !important;
+        border-color: ${(props) => props.theme.color.border.focus} !important;
       }
     }
 
     &::before,
     &::after {
-      border-color: ${props => props.theme.color.primaryText} !important;
+      border-color: ${(props) => props.theme.color.primaryText} !important;
     }
   }
 
   input,
   label {
-    color: ${props => props.theme.color.primaryText} !important;
+    color: ${(props) => props.theme.color.primaryText} !important;
   }
 `;
