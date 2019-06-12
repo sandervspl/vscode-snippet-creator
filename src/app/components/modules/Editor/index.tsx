@@ -1,91 +1,95 @@
 import * as i from '@types';
-import React, { Component } from 'react';
-import { reaction } from 'mobx';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
-import Stores from 'app/stores';
+import _ from 'lodash';
+import Stores, { storeDirectory } from 'app/stores';
+import { useForceUpdate } from 'hooks';
 import { EditorContainer, MonacoEditor } from 'common/Editor';
 import { Tabs } from './components';
 
-@inject(Stores.editorTabsStore, Stores.editorStore)
-@observer
-export class Editor extends Component<EditorProps> {
-  editor: monaco.editor.IStandaloneCodeEditor;
-  editorRef = React.createRef<HTMLDivElement>();
+export const Editor: React.FC<Props> = ({ tabId, editorStore, editorTabsStore }) => {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [editor, setEditor] = useState<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const outputStore = useContext(storeDirectory.outputStore);
+  const forceUpdate = useForceUpdate();
 
-  // Update editor on settings changes
-  updateEditorOptions = reaction(
-    (): i.EditorOptions => this.props.editorStore!.options,
-    (options) => {
-      // Set indent
-      this.editor.getModel().updateOptions({
-        tabSize: options.indent,
-      });
-
-      // Set language
-      monaco.editor.setModelLanguage(this.editor.getModel(), options.language);
-    }
-  );
-
-  componentDidUpdate(prevProps: EditorProps) {
-    const { tabId: prevTabId } = prevProps;
-    const { editorStore, tabId } = this.props;
-
-    // Change body of editor when we switch tabs
-    if (prevTabId !== tabId) {
-      this.editor.setValue(editorStore!.getBody(tabId));
-    }
-
-    // Sync store value with editor value
-    if (this.editor.getValue() !== editorStore!.getBody(tabId)) {
-      this.editor.setValue(editorStore!.getBody(tabId));
-    }
-  }
-
-  componentDidMount() {
-    const { editorStore } = this.props;
+  // Instantiate editor
+  useEffect(() => {
     const { options } = editorStore!;
 
-    this.editor = monaco.editor.create(this.editorRef.current!, {
+    setEditor(monaco.editor.create(editorRef.current!, {
       automaticLayout: true,
       language: options.language,
       minimap: {
         enabled: false,
       },
-    });
+    }));
+  }, []);
 
-    this.editor.getModel().updateOptions({
+  // After editor is instantiated
+  useEffect(() => {
+    if (!editor) return;
+
+    const { options } = editorStore!;
+
+    editor.getModel().updateOptions({
       tabSize: options.indent,
     });
 
     // Update store when content in the editor updates
-    this.editor.onDidChangeModelContent(() => {
-      const { tabId } = this.props.editorTabsStore!;
-      const value = this.editor.getValue();
+    editor.onDidChangeModelContent(() => {
+      const { tabId } = editorTabsStore!;
+      const value = editor.getValue();
 
       // Update value in store
-      this.props.editorStore!.setBody(tabId, value);
+      editorStore!.setBody(tabId, value);
 
-      this.forceUpdate();
+      // Update value in output
+      outputStore.body = value;
+
+      // Force re-render to show parsed output
+      forceUpdate();
     });
-  }
+  }, [editor]);
 
-  render() {
-    const { editorTabsStore } = this.props;
+  // Update editor on settings changes
+  useEffect(() => {
+    if (!editor) return;
 
-    return (
-      <EditorContainer>
-        <Tabs tabId={editorTabsStore!.tabId} />
-        <MonacoEditor ref={this.editorRef} />
-      </EditorContainer>
-    );
-  }
-}
+    const { options } = editorStore!;
 
-export interface EditorProps {
+    // Set indent
+    editor.getModel().updateOptions({
+      tabSize: options.indent,
+    });
+
+    // Set language
+    monaco.editor.setModelLanguage(editor.getModel(), options.language);
+  }, [editorStore!.options]);
+
+  // Change body of editor when we switch tabs
+  useEffect(() => {
+    if (!editor) return;
+
+    editor.setValue(editorStore!.getBody(tabId));
+  }, [tabId]);
+
+  return (
+    <EditorContainer>
+      <Tabs tabId={editorTabsStore!.tabId} />
+      <MonacoEditor ref={editorRef} />
+    </EditorContainer>
+  );
+};
+
+export interface Props {
   editorStore?: i.EditorStore;
   editorTabsStore?: i.EditorTabsStore;
   tabId: number;
 }
 
-export default Editor;
+export default _.flowRight(
+  inject(Stores.editorTabsStore, Stores.editorStore),
+  observer,
+)(Editor);

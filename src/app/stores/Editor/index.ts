@@ -27,7 +27,6 @@ export class EditorStore implements i.EditorStore {
   public get isAtomFormatting() { return this.options.editor === 'Atom'; }
   public get isVSCodeFormatting() { return this.options.editor === 'VS Code'; }
 
-  // @computed
   public getBody(id: number): string {
     return this.bodies[id] || '';
   }
@@ -39,7 +38,7 @@ export class EditorStore implements i.EditorStore {
       [id]: value,
     };
 
-    outputStore.body = this.getBody(id);
+    // outputStore.body = this.getBody(id);
   }
 }
 

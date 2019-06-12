@@ -24,6 +24,7 @@
       "config/*": ["config/*"],
       "@config": ["config/index"],
       "fonts/*": ["app/static/fonts/*"],
+      "hooks": ["app/hooks/index"],
       "images/*": ["app/static/images/*"],
       "modules/*": ["app/components/modules/*"],
       "@modules": ["app/components/modules/index"],

@@ -1,23 +1,23 @@
 import * as i from '@types';
-import React, { Component } from 'react';
+import React, { useEffect, useContext, useState, useRef } from 'react';
 import { reaction } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Button from '@material-ui/core/Button';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import Stores from 'app/stores';
+import _ from 'lodash';
+import Stores, { storeDirectory } from 'app/stores';
 import { localStorageHelper } from 'app/services';
 import { EditorContainer } from 'common/Editor';
 import { TopContainer, OutputMonacoEditor, EditorIndicator } from './components/styled';
 import { WithSnackbarProps, withSnackbar } from 'notistack';
 
-@inject(Stores.outputStore, Stores.editorStore)
-@observer
-class OutputEditor extends Component<Props> {
-  outputEditor: monaco.editor.IStandaloneCodeEditor;
-  editorRef = React.createRef<HTMLDivElement>();
+const OutputEditor: React.FC<Props> = (props) => {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const [outputEditor, setOutputEditor] = useState<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const outputStore = useContext(storeDirectory.outputStore);
 
-  componentDidMount() {
+  useEffect(() => {
     const savedOptions = localStorageHelper.editor.get();
     let initLang = 'json';
 
@@ -27,29 +27,28 @@ class OutputEditor extends Component<Props> {
       }
     }
 
-    this.outputEditor = monaco.editor.create(this.editorRef.current!, {
+    setOutputEditor(monaco.editor.create(editorRef.current!, {
       automaticLayout: true,
       language: initLang,
       readOnly: true,
       minimap: {
         enabled: false,
       },
-    });
+    }));
 
     monaco.editor.setTheme('vs-dark');
 
-    this.setEditorBody();
-  }
+    setEditorBody();
+  }, []);
 
-  componentDidUpdate() {
-    this.setEditorBody();
-  }
-
+  /** useEffect does not seem to work for some reason */
   // Update editor on settings changes
-  updateEditorOptions = reaction(
-    (): i.EditorOptions['editor']  => this.props.editorStore!.options.editor,
+  reaction(
+    ()  => props.editorStore!.options.editor,
     () => {
-      const { editorStore } = this.props;
+      if (!outputEditor) return;
+
+      const { editorStore } = props;
 
       // Update language
       let language = 'json';
@@ -58,48 +57,65 @@ class OutputEditor extends Component<Props> {
         language = 'cson';
       }
 
-      monaco.editor.setModelLanguage(this.outputEditor.getModel(), language);
+      monaco.editor.setModelLanguage(outputEditor.getModel(), language);
+
+      // Update formatting
+      setEditorBody();
     }
   );
 
-  setEditorBody = () => {
-    if (this.props.editorStore!.isVSCodeFormatting) {
-      this.outputEditor.setValue(`{\n${this.props.outputStore!.body}\n}`);
+  /** useEffect does not seem to work for some reason */
+  // Format output value on value change
+  reaction(
+    () => outputStore.body,
+    () => {
+      setEditorBody();
+    }
+  );
+
+  const setEditorBody = () => {
+    if (!outputEditor) return;
+
+    if (props.editorStore!.isVSCodeFormatting) {
+      outputEditor.setValue(`{\n${outputStore.body}\n}`);
     }
 
-    if (this.props.editorStore!.isAtomFormatting) {
-      this.outputEditor.setValue(this.props.outputStore!.body);
+    if (props.editorStore!.isAtomFormatting) {
+      outputEditor.setValue(outputStore.body);
     }
-  }
+  };
 
-  onCopy = () => {
-    this.props.enqueueSnackbar('Snippet copied to clipboard!', { variant: 'success' });
-  }
+  const onCopy = () => {
+    props.enqueueSnackbar('Snippet copied to clipboard!', { variant: 'success' });
+  };
 
-  render() {
-    const { body } = this.props.outputStore!;
-    const { editor } = this.props.editorStore!.options;
+  const { body } = outputStore;
+  const { editor } = props.editorStore!.options;
 
-    return (
-      <EditorContainer>
-        <TopContainer>
-          <CopyToClipboard text={body} onCopy={this.onCopy}>
-            <Button variant="text" color="inherit">
-              Copy to clipboard
-            </Button>
-          </CopyToClipboard>
+  return (
+    <EditorContainer>
+      <TopContainer>
+        <CopyToClipboard text={body} onCopy={onCopy}>
+          <Button variant="text" color="inherit">
+            Copy to clipboard
+          </Button>
+        </CopyToClipboard>
 
-          <EditorIndicator>{editor}</EditorIndicator>
-        </TopContainer>
-        <OutputMonacoEditor ref={this.editorRef} />
-      </EditorContainer>
-    );
-  }
-}
+        <EditorIndicator>{editor}</EditorIndicator>
+      </TopContainer>
+      <OutputMonacoEditor ref={editorRef} />
+    </EditorContainer>
+  );
+};
 
 type Props = WithSnackbarProps & {
   outputStore?: i.OutputStore;
   editorStore?: i.EditorStore;
 }
 
-export default withSnackbar(OutputEditor);
+
+export default _.flowRight(
+  inject(Stores.editorStore),
+  observer,
+  withSnackbar,
+)(OutputEditor);
