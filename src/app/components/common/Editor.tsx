@@ -5,6 +5,7 @@ export const EditorContainer = styled.section`
   flex-direction: column;
   width: 50%;
   height: 100%;
+  background: #1E1E1E;
 `;
 
 export const MonacoEditor = styled.div`

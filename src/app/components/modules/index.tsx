@@ -2,12 +2,7 @@ import { lazy } from 'react';
 
 export { FullscreenLoader } from './FullscreenLoader';
 
-export const Home = lazy(() => import(
-  /* webpackChunkName: "Home" */ './Home'
-));
-export const Editor = lazy(() => import(
-  /* webpackChunkName: "Editor" */ './Editor'
-));
-export const OutputEditor = lazy(() => import(
-  /* webpackChunkName: "OutputEditor" */ './OutputEditor'
-));
+export const Home = lazy(() => import('./Home'));
+export const NewSnippet = lazy(() => import('./NewSnippet'));
+export const Editor = lazy(() => import('./Editor'));
+export const OutputEditor = lazy(() => import('./OutputEditor'));

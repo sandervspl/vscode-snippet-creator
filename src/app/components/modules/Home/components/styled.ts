@@ -1,5 +1,7 @@
+import * as i from 'types';
 import styled, { css } from '@styled-components';
 import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
 import { ModalInner } from 'common/Modal';
 
 export const Container = styled.div`
@@ -111,4 +113,40 @@ export const Field = styled.div<FieldProps>`
 `;
 interface FieldProps {
   small?: boolean;
+}
+
+export const StyledTabs = styled(Tabs)<StyledTabsProps>`
+  background-color: ${(props) => props.theme.color.primaryBg};
+  transition: background-color 1s ease-in-out;
+
+  *::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+  }
+
+  button {
+    /* width: 100%; */
+    width: ${(props) => `calc(100% / ${props.tabsAmount})`};
+    min-width: 75px;
+    max-width: 150px;
+    text-align: left;
+    color: ${(props) => props.theme.color.primaryText};
+    white-space: nowrap;
+
+    &:last-child {
+      width: 75px;
+    }
+
+    &[aria-selected="true"],
+    &:hover {
+      background-color: ${(props) => props.theme.color.primaryBgLight};
+
+      svg {
+        fill: ${(props) => props.theme.color.white};
+      }
+    }
+  }
+`;
+interface StyledTabsProps extends i.BaseStyled {
+  tabsAmount: number;
 }

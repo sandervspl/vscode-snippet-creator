@@ -4,15 +4,17 @@ import { inject, observer } from 'mobx-react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Stores from 'app/stores';
-import { Editor, OutputEditor } from '@modules';
-import { Container, StyledAppBar, EditorsContainer } from './components/styled';
+import { Editor, OutputEditor, NewSnippet } from '@modules';
+import { EditorContainer } from 'app/components/common/Editor';
 import SettingsButton from './components/SettingsButton';
+import Tabs from './components/Tabs';
+import { Container, StyledAppBar, EditorsContainer } from './components/styled';
 
 @inject(Stores.editorTabsStore)
 @observer
 class Home extends Component<HomeProps> {
   render() {
-    const { tabId } = this.props.editorTabsStore!;
+    const { tabId, activeTab } = this.props.editorTabsStore!;
 
     return (
       <Container>
@@ -25,7 +27,14 @@ class Home extends Component<HomeProps> {
           </Toolbar>
         </StyledAppBar>
         <EditorsContainer>
-          <Editor tabId={tabId} />
+          <EditorContainer>
+            <Tabs tabId={tabId} />
+            {activeTab.ready ? (
+              <Editor tabId={tabId} />
+            ) : (
+              <NewSnippet />
+            )}
+          </EditorContainer>
           <OutputEditor />
         </EditorsContainer>
       </Container>

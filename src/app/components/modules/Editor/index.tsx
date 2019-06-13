@@ -4,8 +4,7 @@ import { reaction } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Stores from 'app/stores';
-import { EditorContainer, MonacoEditor } from 'common/Editor';
-import { Tabs } from './components';
+import { MonacoEditor } from 'common/Editor';
 
 @inject(Stores.editorTabsStore, Stores.editorStore)
 @observer
@@ -71,13 +70,8 @@ export class Editor extends Component<EditorProps> {
   }
 
   render() {
-    const { editorTabsStore } = this.props;
-
     return (
-      <EditorContainer>
-        <Tabs tabId={editorTabsStore!.tabId} />
-        <MonacoEditor ref={this.editorRef} />
-      </EditorContainer>
+      <MonacoEditor ref={this.editorRef} />
     );
   }
 }

@@ -1,6 +1,4 @@
-import * as i from '@types';
 import styled from '@styled-components';
-import Tabs from '@material-ui/core/Tabs';
 import { ModalInner } from 'common/Modal';
 
 export const Form = styled.form`
@@ -30,46 +28,6 @@ export const CloseButton = styled.div`
     }
   }
 `;
-
-export const StyledTabs = styled(Tabs)<StyledTabsProps>`
-  background-color: ${(props) => props.theme.color.primaryBg};
-  transition: background-color 1s ease-in-out;
-
-  *::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-  }
-
-  button {
-    /* width: 100%; */
-    width: ${(props) => `calc(100% / ${props.tabsAmount})`};
-    min-width: 75px;
-    max-width: 150px;
-    text-align: left;
-    color: ${(props) => props.theme.color.primaryText};
-    white-space: nowrap;
-
-    &:last-child {
-      width: 75px;
-    }
-
-    &[aria-selected="true"],
-    &:hover {
-      background-color: ${(props) => props.theme.color.primaryBgLight};
-
-      + ${CloseButton} {
-        background: transparent;
-      }
-
-      svg {
-        fill: ${(props) => props.theme.color.white};
-      }
-    }
-  }
-`;
-interface StyledTabsProps extends i.BaseStyled {
-  tabsAmount: number;
-}
 
 export const NewSnippetInnerModal = styled(ModalInner)`
   h2 {
