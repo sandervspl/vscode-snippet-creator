@@ -19,6 +19,11 @@ export const TopContainer = styled.div`
       background-color: none;
     }
   }
+
+  svg {
+    margin-right: 5px;
+    font-size: 18px;
+  }
 `;
 
 export const OutputMonacoEditor = styled(MonacoEditor)`

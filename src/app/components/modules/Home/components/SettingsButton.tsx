@@ -3,8 +3,8 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { SettingsContainer } from './styled';
 import SettingsModal from './SettingsModal';
+import { SettingsContainer } from './styled';
 
 @observer
 class SettingsButton extends Component {

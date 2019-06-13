@@ -4,12 +4,13 @@ import { reaction } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import * as monaco from 'monaco-editor';
 import Button from '@material-ui/core/Button';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { WithSnackbarProps, withSnackbar } from 'notistack';
 import Stores from 'app/stores';
 import { localStorageHelper } from 'app/services';
 import { EditorContainer } from 'common/Editor';
 import { TopContainer, OutputMonacoEditor, EditorIndicator } from './components/styled';
-import { WithSnackbarProps, withSnackbar } from 'notistack';
 
 @inject(Stores.outputStore, Stores.editorStore)
 @observer
@@ -85,7 +86,8 @@ class OutputEditor extends Component<Props> {
         <TopContainer>
           <CopyToClipboard text={body} onCopy={this.onCopy}>
             <Button variant="text" color="inherit">
-              Copy to clipboard
+              <FileCopyIcon />
+              Copy snippet
             </Button>
           </CopyToClipboard>
 
