@@ -4,8 +4,9 @@ export interface EditorTabsStore {
   activeTab: Snippet;
   setActiveTab: (id: number) => void;
   addTab: (name: string, prefix: string) => void;
-  updateTab: (name: string, prefix?: string, ready?: boolean) => void;
   addEmptyTab: () => void;
+  updateTab: (name: string, prefix?: string, ready?: boolean) => void;
+  removeTab: (id: number) => void;
 }
 
 export interface Snippet {

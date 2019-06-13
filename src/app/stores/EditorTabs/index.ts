@@ -4,7 +4,7 @@ import { observable, action } from 'mobx';
 class EditorTabsStore implements i.EditorTabsStore {
   private static readonly INIT_TAB = {
     id: 0,
-    name: '',
+    name: 'Untitled',
     prefix: '',
     ready: false,
   };
@@ -19,6 +19,7 @@ class EditorTabsStore implements i.EditorTabsStore {
     return this.tabs[this.tabId];
   }
 
+  @action
   public setActiveTab = (id: number) => {
     this.tabId = id;
   }
@@ -50,6 +51,11 @@ class EditorTabsStore implements i.EditorTabsStore {
   }
 
   @action
+  public addEmptyTab = () => {
+    this.addTab('Untitled', '');
+  }
+
+  @action
   public updateTab = (name: string, prefix = '', ready = false) => {
     this.tabs[this.tabId] = {
       ...this.tabs[this.tabId],
@@ -60,8 +66,14 @@ class EditorTabsStore implements i.EditorTabsStore {
   }
 
   @action
-  public addEmptyTab = () => {
-    this.addTab('', '');
+  public removeTab = (id: number) => {
+    this.tabs = this.tabs.filter((snippet) => snippet.id !== id);
+    this.toPreviousTab(id);
+  }
+
+  @action
+  private toPreviousTab = (id: number) => {
+    this.tabId = Math.max(0, id - 1);
   }
 }
 

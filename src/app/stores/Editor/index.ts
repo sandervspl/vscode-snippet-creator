@@ -13,7 +13,7 @@ export class EditorStore implements i.EditorStore {
   @observable bodies: i.EditorBodies = {};
   @observable options: i.EditorOptions = EditorStore.INIT_OPTIONS;
 
-  private updateStorage = reaction(
+  updateStorage = reaction(
     (): i.EditorOptions => ({
       indent: this.options.indent,
       language: this.options.language,
@@ -27,7 +27,6 @@ export class EditorStore implements i.EditorStore {
   public get isAtomFormatting() { return this.options.editor === 'Atom'; }
   public get isVSCodeFormatting() { return this.options.editor === 'VS Code'; }
 
-  // @computed
   public getBody(id: number): string {
     return this.bodies[id] || '';
   }

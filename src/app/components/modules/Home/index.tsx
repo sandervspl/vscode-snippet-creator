@@ -1,11 +1,12 @@
 import * as i from '@types';
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { inject, observer } from 'mobx-react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Stores from 'app/stores';
 import { Editor, OutputEditor, NewSnippet } from '@modules';
-import { EditorContainer } from 'app/components/common/Editor';
+import { FullscreenLoader } from 'modules/FullscreenLoader';
+import { EditorContainer } from 'common/Editor';
 import SettingsButton from './components/SettingsButton';
 import Tabs from './components/Tabs';
 import { Container, StyledAppBar, EditorsContainer } from './components/styled';
@@ -29,13 +30,17 @@ class Home extends Component<HomeProps> {
         <EditorsContainer>
           <EditorContainer>
             <Tabs tabId={tabId} />
-            {activeTab.ready ? (
-              <Editor tabId={tabId} />
-            ) : (
-              <NewSnippet />
-            )}
+            <Suspense fallback={FullscreenLoader}>
+              {activeTab.ready ? (
+                <Editor tabId={tabId} />
+              ) : (
+                <NewSnippet />
+              )}
+            </Suspense>
           </EditorContainer>
-          <OutputEditor />
+          <Suspense fallback={FullscreenLoader}>
+            <OutputEditor />
+          </Suspense>
         </EditorsContainer>
       </Container>
     );

@@ -1,5 +1,4 @@
 import styled from '@styled-components';
-import { ModalInner } from 'common/Modal';
 
 export const Form = styled.form`
   display: flex;
@@ -26,19 +25,5 @@ export const CloseButton = styled.div`
     &:hover {
       fill: ${(props) => props.theme.color.white}; 
     }
-  }
-`;
-
-export const NewSnippetInnerModal = styled(ModalInner)`
-  h2 {
-    margin-bottom: 10px;
-  }
-
-  button {
-    margin-top: 20px;
-  }
-
-  div:not(:last-of-type) {
-    margin-bottom: 8px !important;
   }
 `;

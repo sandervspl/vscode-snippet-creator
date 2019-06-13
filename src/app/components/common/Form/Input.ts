@@ -9,7 +9,7 @@ export const Input = styled(TextField).attrs({
   margin: 0 !important;
 
   fieldset {
-    border-color: ${(props) => props.theme.color.border};
+    border-color: ${(props) => props.theme.color.border} !important;
 
     &:active,
     &:focus {

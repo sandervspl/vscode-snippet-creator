@@ -1,12 +1,12 @@
 import * as i from 'types';
-import React, { Component, Suspense } from 'react';
+import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { SnackbarProvider } from 'notistack';
 import { localStorageHelper } from 'app/services';
 import { Head } from '@common';
-import { Home, FullscreenLoader } from '@modules';
+import { Home } from '@modules';
 import Stores from 'app/stores';
 
 @inject(Stores.editorStore)
@@ -31,13 +31,11 @@ class App extends Component<AppProps> {
     return (
       <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
         <Head />
-        <Suspense fallback={FullscreenLoader}>
-          <main>
-            <Switch>
-              <Route exact path="/" component={Home} />
-            </Switch>
-          </main>
-        </Suspense>
+        <main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+          </Switch>
+        </main>
       </SnackbarProvider>
     );
   }

@@ -14,7 +14,7 @@ export class Editor extends Component<EditorProps> {
 
   // Update editor on settings changes
   updateEditorOptions = reaction(
-    (): i.EditorOptions => this.props.editorStore!.options,
+    () => this.props.editorStore!.options,
     (options) => {
       // Set indent
       this.editor.getModel().updateOptions({
@@ -26,20 +26,18 @@ export class Editor extends Component<EditorProps> {
     }
   );
 
-  componentDidUpdate(prevProps: EditorProps) {
-    const { tabId: prevTabId } = prevProps;
-    const { editorStore, tabId } = this.props;
+  setEditorValue = reaction(
+    () => this.props.editorTabsStore!.tabId,
+    (activeTabId) => {
+      this.editor.setValue(this.props.editorStore!.getBody(activeTabId));
 
-    // Change body of editor when we switch tabs
-    if (prevTabId !== tabId) {
-      this.editor.setValue(editorStore!.getBody(tabId));
-    }
+      if (this.editor.getValue() !== this.props.editorStore!.getBody(activeTabId)) {
+        this.editor.setValue(this.props.editorStore!.getBody(activeTabId));
+      }
 
-    // Sync store value with editor value
-    if (this.editor.getValue() !== editorStore!.getBody(tabId)) {
-      this.editor.setValue(editorStore!.getBody(tabId));
+      this.forceUpdate();
     }
-  }
+  )
 
   componentDidMount() {
     const { editorStore } = this.props;
