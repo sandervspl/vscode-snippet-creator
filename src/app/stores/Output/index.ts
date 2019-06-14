@@ -33,6 +33,8 @@ class OutputStore implements i.OutputStore {
     const { editorTabsStore, editorStore } = stores;
     const snippet = editorTabsStore.activeTab;
 
+    if (!snippet) return '';
+
     if (editorStore.isVSCodeFormatting) {
       return this.formatVSCode(snippet);
     }

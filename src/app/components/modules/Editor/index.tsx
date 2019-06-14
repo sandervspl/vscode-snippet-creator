@@ -30,12 +30,6 @@ export class Editor extends Component<EditorProps> {
     () => this.props.editorTabsStore!.tabId,
     (activeTabId) => {
       this.editor.setValue(this.props.editorStore!.getBody(activeTabId));
-
-      if (this.editor.getValue() !== this.props.editorStore!.getBody(activeTabId)) {
-        this.editor.setValue(this.props.editorStore!.getBody(activeTabId));
-      }
-
-      this.forceUpdate();
     }
   )
 
@@ -62,8 +56,6 @@ export class Editor extends Component<EditorProps> {
 
       // Update value in store
       this.props.editorStore!.setBody(tabId, value);
-
-      this.forceUpdate();
     });
   }
 

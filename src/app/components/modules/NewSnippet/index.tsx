@@ -5,18 +5,16 @@ import { inject, observer } from 'mobx-react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Stores from 'app/stores';
-// import { H2 } from 'common/Typography';
 import { Input } from 'common/Form';
 import { NewSnippetContainer, Form, ButtonGroup } from './styled';
 
 @inject(Stores.editorTabsStore)
 @observer
-class NewSnippetModal extends Component<Props> {
+class NewSnippetForm extends Component<Props> {
   nameInputRef = createRef<HTMLInputElement>();
 
   @observable name = '';
   @observable prefix = '';
-  @observable newTabId = -1;
 
   setFocusOnTabChange = reaction(
     () => this.props.editorTabsStore!.tabId,
@@ -28,31 +26,30 @@ class NewSnippetModal extends Component<Props> {
   )
 
   @action
-  handleChange = (event) => {
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.currentTarget;
     const { updateTab } = this.props.editorTabsStore!;
 
     this[name] = value;
 
-    if (name === 'name') {
-      updateTab(value);
-    }
+    updateTab(this.name, this.prefix);
   }
 
   @action
-  onCreateClick = () => {
+  onAddSnippet = () => {
     const { updateTab } = this.props.editorTabsStore!;
 
-    updateTab('Untitled', this.prefix, true);
+    updateTab(this.name, this.prefix, true);
   }
 
   onCancelClick = () => {
     const { removeTab, tabId } = this.props.editorTabsStore!;
+
     removeTab(tabId);
   }
 
   render() {
-    const { tabId } = this.props.editorTabsStore!;
+    const { tabId, isFirstTab } = this.props.editorTabsStore!;
 
     return (
       <NewSnippetContainer>
@@ -76,13 +73,13 @@ class NewSnippetModal extends Component<Props> {
             variant="outlined"
           />
           <ButtonGroup>
-            <Button disabled={tabId === 0} onClick={this.onCancelClick}>
+            <Button onClick={this.onCancelClick} disabled={isFirstTab(tabId)}>
               Cancel
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.onCreateClick}
+              onClick={this.onAddSnippet}
             >
             Add snippet
             </Button>
@@ -97,4 +94,4 @@ interface Props {
   editorTabsStore?: i.EditorTabsStore;
 }
 
-export default NewSnippetModal;
+export default NewSnippetForm;

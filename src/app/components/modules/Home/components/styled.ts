@@ -126,7 +126,7 @@ export const StyledTabs = styled(Tabs)<StyledTabsProps>`
 
   button {
     /* width: 100%; */
-    width: ${(props) => `calc(100% / ${props.tabsAmount})`};
+    width: ${(props) => `calc(100% / ${props.tabsamount})`};
     min-width: 75px;
     max-width: 150px;
     text-align: left;
@@ -148,5 +148,5 @@ export const StyledTabs = styled(Tabs)<StyledTabsProps>`
   }
 `;
 interface StyledTabsProps extends i.BaseStyled {
-  tabsAmount: number;
+  tabsamount: number;
 }

@@ -1,9 +1,12 @@
 import * as i from '@types';
 import { observable, action } from 'mobx';
+import { uniqueId } from 'lodash';
 
 class EditorTabsStore implements i.EditorTabsStore {
-  private static readonly INIT_TAB = {
-    id: 0,
+  private getUniqueId = () => Number(uniqueId());
+
+  private readonly INIT_TAB: i.Snippet = {
+    id: this.getUniqueId(),
     name: 'Untitled',
     prefix: '',
     ready: false,
@@ -12,11 +15,18 @@ class EditorTabsStore implements i.EditorTabsStore {
   /**
    * @note tabId is is NOT related to Snippet.id
    */
-  @observable tabId = 0;
-  @observable tabs: i.Snippet[] = [EditorTabsStore.INIT_TAB];
+  @observable tabId: number = this.INIT_TAB.id;
+  @observable tabs: Record<number, i.Snippet> = {
+    [this.INIT_TAB.id]: this.INIT_TAB,
+  }
+
+  @action
+  public getTab = (id: number): i.Snippet => {
+    return this.tabs[id];
+  }
 
   public get activeTab(): i.Snippet {
-    return this.tabs[this.tabId];
+    return this.getTab(this.tabId);
   }
 
   @action
@@ -25,34 +35,25 @@ class EditorTabsStore implements i.EditorTabsStore {
   }
 
   @action
-  public addTab = (name: string, prefix: string) => {
-    const firstTab = this.tabs.find((tab) => tab.id === 0) || this.tabs[0];
-
-    const notFirstTabs: i.Snippet[] = this.tabs.length > 1
-      ? this.tabs.filter((tab) => tab.id !== 0)
-      : [];
-
+  public addTab = (name: string, prefix: string): number => {
     const newTab = {
-      ...EditorTabsStore.INIT_TAB,
-      id: this.tabs.length,
+      ...this.INIT_TAB,
+      id: this.getUniqueId(),
       name,
       prefix,
     };
 
-    const newTabs = [
-      ...notFirstTabs,
-      firstTab,
-      newTab,
-    ];
+    this.tabs = {
+      ...this.tabs,
+      [newTab.id]: newTab,
+    };
 
-    this.tabs = newTabs;
-
-    this.tabId = this.tabs.length - 2;
+    return newTab.id;
   }
 
   @action
-  public addEmptyTab = () => {
-    this.addTab('Untitled', '');
+  public addEmptyTab = (): number => {
+    return this.addTab(this.INIT_TAB.name, '');
   }
 
   @action
@@ -67,13 +68,34 @@ class EditorTabsStore implements i.EditorTabsStore {
 
   @action
   public removeTab = (id: number) => {
-    this.tabs = this.tabs.filter((snippet) => snippet.id !== id);
     this.toPreviousTab(id);
+
+    delete this.tabs[id];
+  }
+
+  public isFirstTab = (id: number): boolean => {
+    const tabIds = this.getTabIds();
+
+    return tabIds.indexOf(id) === 0;
+  }
+
+  private getTabIds = (): number[] => {
+    return Object.keys(this.tabs).map((key) => Number(key));
   }
 
   @action
   private toPreviousTab = (id: number) => {
-    this.tabId = Math.max(0, id - 1);
+    const tabIds = this.getTabIds();
+    const indexOfTab = tabIds
+      .map((key) => this.tabs[key].id)
+      .indexOf(id);
+
+    if (indexOfTab === -1) {
+      this.tabId = tabIds[0];
+    } else {
+      const prevTabId = Math.max(0, indexOfTab - 1);
+      this.tabId = tabIds[prevTabId];
+    }
   }
 }
 

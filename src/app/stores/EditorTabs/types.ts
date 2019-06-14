@@ -1,12 +1,14 @@
 export interface EditorTabsStore {
   tabId: number;
-  tabs: Snippet[];
-  activeTab: Snippet;
+  tabs: Record<number, Snippet>;
+  activeTab: Snippet | undefined;
+  getTab: (id: number) => Snippet | undefined;
   setActiveTab: (id: number) => void;
-  addTab: (name: string, prefix: string) => void;
-  addEmptyTab: () => void;
+  addTab: (name: string, prefix: string) => number;
+  addEmptyTab: () => number;
   updateTab: (name: string, prefix?: string, ready?: boolean) => void;
   removeTab: (id: number) => void;
+  isFirstTab: (id: number) => boolean;
 }
 
 export interface Snippet {

@@ -48,7 +48,7 @@ class OutputEditor extends Component<Props> {
 
   // Update editor on settings changes
   updateEditorOptions = reaction(
-    (): i.EditorOptions['editor']  => this.props.editorStore!.options.editor,
+    ()  => this.props.editorStore!.options.editor,
     () => {
       const { editorStore } = this.props;
 
@@ -82,7 +82,7 @@ class OutputEditor extends Component<Props> {
     const { editor } = this.props.editorStore!.options;
 
     return (
-      <EditorContainer>
+      <>
         <TopContainer>
           <CopyToClipboard text={body} onCopy={this.onCopy}>
             <Button variant="text" color="inherit">
@@ -94,7 +94,7 @@ class OutputEditor extends Component<Props> {
           <EditorIndicator>{editor}</EditorIndicator>
         </TopContainer>
         <OutputMonacoEditor ref={this.editorRef} />
-      </EditorContainer>
+      </>
     );
   }
 }
