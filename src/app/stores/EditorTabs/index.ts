@@ -12,9 +12,6 @@ class EditorTabsStore implements i.EditorTabsStore {
     ready: false,
   };
 
-  /**
-   * @note tabId is is NOT related to Snippet.id
-   */
   @observable tabId: number = this.INIT_TAB.id;
   @observable tabs: Record<number, i.Snippet> = {
     [this.INIT_TAB.id]: this.INIT_TAB,
@@ -58,11 +55,14 @@ class EditorTabsStore implements i.EditorTabsStore {
 
   @action
   public updateTab = (name: string, prefix = '', ready = false) => {
-    this.tabs[this.tabId] = {
-      ...this.tabs[this.tabId],
-      name,
-      prefix,
-      ready,
+    this.tabs = {
+      ...this.tabs,
+      [this.tabId]: {
+        ...this.tabs[this.tabId],
+        name,
+        prefix,
+        ready,
+      },
     };
   }
 

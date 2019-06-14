@@ -10,10 +10,16 @@ import { EditorContainer } from 'common/Editor';
 import SettingsButton from './components/SettingsButton';
 import Tabs from './components/Tabs';
 import { Container, StyledAppBar, EditorsContainer } from './components/styled';
+import { reaction } from 'mobx';
 
 @inject(Stores.editorTabsStore)
 @observer
 class Home extends Component<Props> {
+  update = reaction(
+    () => this.props.editorTabsStore!.tabs,
+    () => this.forceUpdate(),
+  );
+
   render() {
     const { tabId, activeTab } = this.props.editorTabsStore!;
 

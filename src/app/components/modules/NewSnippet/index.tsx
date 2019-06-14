@@ -33,9 +33,9 @@ class NewSnippetForm extends Component<Props> {
     this[name] = value;
 
     updateTab(this.name, this.prefix);
+    this.forceUpdate();
   }
 
-  @action
   onAddSnippet = () => {
     const { updateTab } = this.props.editorTabsStore!;
 
