@@ -17,3 +17,4 @@ src/config/secret.ts
 ehthumbs.db
 Thumbs.db
 npm-debug.log
+deploy.sh
