@@ -13,7 +13,7 @@ import { Container, StyledAppBar, EditorsContainer } from './components/styled';
 
 @inject(Stores.editorTabsStore)
 @observer
-class Home extends Component<HomeProps> {
+class Home extends Component<Props> {
   render() {
     const { tabId, activeTab } = this.props.editorTabsStore!;
 
@@ -31,23 +31,25 @@ class Home extends Component<HomeProps> {
           <EditorContainer>
             <Tabs tabId={tabId} />
             <Suspense fallback={FullscreenLoader}>
-              {activeTab.ready ? (
+              {activeTab && activeTab.ready ? (
                 <Editor tabId={tabId} />
               ) : (
                 <NewSnippet />
               )}
             </Suspense>
           </EditorContainer>
-          <Suspense fallback={FullscreenLoader}>
-            <OutputEditor />
-          </Suspense>
+          <EditorContainer>
+            <Suspense fallback={FullscreenLoader}>
+              <OutputEditor />
+            </Suspense>
+          </EditorContainer>
         </EditorsContainer>
       </Container>
     );
   }
 }
 
-interface HomeProps {
+interface Props {
   editorTabsStore?: i.EditorTabsStore;
 }
 
