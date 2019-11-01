@@ -36,7 +36,7 @@
     "compression": "1.7.4",
     "express": "4.17.1",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "mobx": "5.9.4",
     "mobx-react": "5.4.4",
     "mobx-react-router": "4.0.7",
